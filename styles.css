@@ -1,0 +1,75 @@
+/* Basic page spacing */
+body {
+	padding-bottom: 40px;
+}
+
+/* Hangman stage container */
+.hangman-stage {
+	position: relative;
+	background: transparent;
+	width: 260px;
+	height: 340px;
+}
+
+/* Body-part containers hold images; hidden by default, show by adding .visible */
+.man-part {
+	display: none;
+}
+.man-part.visible {
+	display: block;
+}
+.man-part img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+/* Positioning for parts inside #hangman (matches previous inline values) */
+#hangman svg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 0;
+}
+
+#head { position: absolute; left: 105px; top: 35px; width: 30px; height: 30px; z-index: 1; }
+#body { position: absolute; left: 118px; top: 65px; width: 4px; height: 60px; z-index: 1; }
+#armL { position: absolute; left: 85px; top: 80px; width: 35px; height: 20px; z-index: 1; }
+#armR { position: absolute; left: 140px; top: 80px; width: 35px; height: 20px; z-index: 1; }
+#legL { position: absolute; left: 100px; top: 125px; width: 30px; height: 45px; z-index: 1; }
+#legR { position: absolute; left: 130px; top: 125px; width: 30px; height: 45px; z-index: 1; }
+
+/* Hide parts by default; use .visible to show */
+.man-part { display: none; }
+.man-part.visible { display: block; }
+
+/* Word display */
+#word {
+	letter-spacing: 8px;
+	word-break: break-word;
+}
+
+/* Keyboard (letter buttons) */
+#keyboard .letter-btn {
+	min-width: 40px;
+	height: 40px;
+	padding: 0 8px;
+	border-radius: 6px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Disabled letter look */
+#keyboard .letter-btn:disabled {
+	opacity: 0.45;
+}
+
+/* Small screens: ensure hangman fits */
+@media (max-width: 576px) {
+	.hangman-stage { width: 200px; height: 260px; }
+}
+
+/* Utility: visually center the card content */
+.card .card-body { align-items: flex-start; }
