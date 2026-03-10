@@ -63,11 +63,21 @@ function guessLetter() {
 
     // clear the input after the guess
     document.getElementById('letterInput').value = '';
-  } else {
-    // show error somewhere else (not on the input element)
-    console.log('Please guess a single letter');
-  }
+     const warning = document.getElementById('warning');
+  warning.style.display = 'none';
+  } 
+  else {
+  console.log('Please guess a letter');
+  const warning = document.getElementById('warning');
+  warning.style.display = 'block';
+}
+
 
   updateDisplay();
 }
+
+function alreadyGuessed() {
+  
+}
+
 

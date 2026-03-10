@@ -73,3 +73,6 @@ body {
 
 /* Utility: visually center the card content */
 .card .card-body { align-items: flex-start; }
+.warning {
+ display: none;
+}
