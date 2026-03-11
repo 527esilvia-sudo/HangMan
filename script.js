@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function startGame() {
   let randomIndex = Math.floor(Math.random() * wordBank.length)
-  secretWord = wordBank[randomIndex]
+  secretWord = wordBank[randomIndex].toUpperCase()
   console.log(secretWord)
   guessedLetters = []
   wins = 0
@@ -55,7 +55,7 @@ nameInput.addEventListener("keydown", e => {
 }); */
 
 function guessLetter() {
-  const letterInput = document.getElementById('letterInput').value.trim();
+  const letterInput = document.getElementById('letterInput').value.trim().toUpperCase();
 
   if (/^[a-zA-Z]$/.test(letterInput)) {
     console.log(letterInput);
