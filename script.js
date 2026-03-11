@@ -2,11 +2,13 @@ wordBank = ['Tree', 'Bridge', 'Lantern', 'Whisper', 'Compass', 'Glacier', 'Chair
 
 let secretWord = ''
 let guessedLetters = []
+let Guessed = []
 let remainingGuesses = 0
 let gameOver = false
 let wins = 0
 let wrongGuesses = 0
 let userGuesses = []
+let letter = ''
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -55,29 +57,23 @@ nameInput.addEventListener("keydown", e => {
 }); */
 
 function guessLetter() {
-  const letterInput = document.getElementById('letterInput').value.trim().toUpperCase();
-
-  if (/^[a-zA-Z]$/.test(letterInput)) {
-    console.log(letterInput);
-    guessedLetters.push(letterInput);
-
-    // clear the input after the guess
-    document.getElementById('letterInput').value = '';
-     const warning = document.getElementById('warning');
-  warning.style.display = 'none';
-  } 
-  else {
-  console.log('Please guess a letter');
+  const letter = document.getElementById('letterInput').value.trim().toUpperCase();
   const warning = document.getElementById('warning');
-  warning.style.display = 'block';
-}
 
-
+ 
+  if (!/^[A-Z]$/.test(letter)) {
+    console.log('Please guess a single letter');
+    warning.style.display = 'block';
+    return;
+  }
+  if (guessedLetters.includes(letter)) {
+    console.log('You already guessed that letter');
+    warning.style.display = 'block';
+  } else {
+ 
+    guessedLetters.push(letter);
+    warning.style.display = 'none';
+  }
+  document.getElementById('letterInput').value = '';
   updateDisplay();
 }
-
-function alreadyGuessed() {
-  
-}
-
-
