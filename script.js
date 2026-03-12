@@ -69,8 +69,8 @@ function guessLetter() {
   if (guessedLetters.includes(letter)) {
     console.log('You already guessed that letter');
     warning.style.display = 'block';
+    warning.textContent = 'You already guessed that letter';
   } else {
- 
     guessedLetters.push(letter);
     warning.style.display = 'none';
   }
