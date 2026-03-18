@@ -32,6 +32,7 @@ function startGame() {
   remainingGuesses = 6
   gameOver = false
   updateDisplay()
+  updateHangman()
   // • pick the random word yes
   // • reset variables yes
   // • build the starting display yes
@@ -55,7 +56,12 @@ function updateDisplay() {
 
   document.getElementById("wordDisplay").textContent = display;
   document.getElementById("guessedLetters").textContent = "Guessed: " + guessedLetters.join(", ");
+  document.getElementById('remaining-count').textContent = remainingGuesses;
+}
 
+function updateHangman() {
+  const stage = wrongGuesses + 1;
+  document.getElementById('hangmanImage').src = `stage ${stage}.jpg`;
 }
 
 
@@ -76,6 +82,11 @@ function guessLetter() {
   } else {
     guessedLetters.push(letter);
     warning.style.display = 'none';
+    if (!secretWord.includes(letter)) {
+      wrongGuesses++;
+      remainingGuesses--;
+      updateHangman();
+    }
   }
   document.getElementById('letterInput').value = '';
   updateDisplay();
