@@ -14,6 +14,12 @@ let letter = ''
 document.addEventListener("DOMContentLoaded", function () {
 
   startGame();
+
+  document.getElementById('letterInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      guessLetter();
+    }
+  });
 });
 
 function startGame() {
@@ -51,10 +57,7 @@ function updateDisplay() {
   document.getElementById("guessedLetters").textContent = "Guessed: " + guessedLetters.join(", ");
 
 }
-/* startBtn.onclick = userGuesses;
-nameInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") startGame();
-}); */
+
 
 function guessLetter() {
   const letter = document.getElementById('letterInput').value.trim().toUpperCase();
@@ -77,3 +80,8 @@ function guessLetter() {
   document.getElementById('letterInput').value = '';
   updateDisplay();
 }
+
+
+
+
+
