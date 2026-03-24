@@ -4,13 +4,19 @@ let secretWord = ''
 let guessedLetters = []
 let Guessed = []
 let remainingGuesses = 0
-let gameOver = false
 let wins = 0
 let wrongGuesses = 0
 let userGuesses = []
-let letter = ''
+let gameOver = false
 
 
+function checkGameOver(){
+  if (remainingGuesses <= 0) {
+    gameOver = true;
+    document.getElementById('gameOverMessage').textContent = 'Game Over!';
+
+  }
+}
 document.addEventListener("DOMContentLoaded", function () {
 
   startGame();
@@ -23,12 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function startGame() {
+  gameOver()
   let randomIndex = Math.floor(Math.random() * wordBank.length)
   secretWord = wordBank[randomIndex].toUpperCase()
   console.log(secretWord)
   guessedLetters = []
   wins = 0
-  wrongGuesses = 0
   remainingGuesses = 6
   gameOver = false
   updateDisplay()
@@ -39,7 +45,7 @@ function startGame() {
 }
 
 function updateDisplay() {
-
+gameOver()
   let display = "";
 
   for (let i = 0; i < secretWord.length; i++) {
@@ -51,6 +57,7 @@ function updateDisplay() {
     } else {
       display += "_ ";
     }
+  
   }
 
   document.getElementById("wordDisplay").textContent = display;
@@ -60,11 +67,13 @@ function updateDisplay() {
 
 
 function guessLetter() {
+  gameOver()
   const letter = document.getElementById('letterInput').value.trim().toUpperCase();
   const warning = document.getElementById('warning');
-
+warning.textContent = '';
  
   if (!/^[A-Z]$/.test(letter)) {
+     warning.textContent = 'Please guess a single letter';
     console.log('Please guess a single letter');
     warning.style.display = 'block';
     return;
@@ -73,13 +82,25 @@ function guessLetter() {
     console.log('You already guessed that letter');
     warning.style.display = 'block';
     warning.textContent = 'You already guessed that letter';
+    return;
   } else {
     guessedLetters.push(letter);
     warning.style.display = 'none';
   }
+    if (!secretWord.includes(letter)) {
+    remainingGuesses--;
+    document.getElementById('remaining-count').textContent = remainingGuesses;
+  }
   document.getElementById('letterInput').value = '';
   updateDisplay();
 }
+
+// function gameOver(){
+//   if (remainingGuesses <= 0) {
+//     gameOver = true;
+//     document.getElementById('gameOverMessage').textContent = 'Game Over! The word was: ' + secretWord;
+//   }
+// }
 
 
 
