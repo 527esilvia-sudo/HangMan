@@ -4,11 +4,11 @@ let secretWord = ''
 let guessedLetters = []
 let Guessed = []
 let remainingGuesses = 0
-let gameOver = false
 let wins = 0
 let wrongGuesses = 0
 let userGuesses = []
-let letter = ''
+let gameOver = false
+let image = ''
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -23,13 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function startGame() {
+ 
   let randomIndex = Math.floor(Math.random() * wordBank.length)
   secretWord = wordBank[randomIndex].toUpperCase()
   console.log(secretWord)
   guessedLetters = []
   wins = 0
-  wrongGuesses = 0
   remainingGuesses = 6
+  wrongGuesses = 0
   gameOver = false
   updateDisplay()
   updateHangman()
@@ -39,8 +40,14 @@ function startGame() {
   // • update elements on the page yes
 }
 
-function updateDisplay() {
+function checkGameOver(){
+  if (remainingGuesses <= 0) {
+    gameOver = true;
+    document.getElementById('gameOverMessage').textContent = 'Game Over!';
 
+  }
+}
+function updateDisplay() {
   let display = "";
 
   for (let i = 0; i < secretWord.length; i++) {
@@ -52,6 +59,7 @@ function updateDisplay() {
     } else {
       display += "_ ";
     }
+  
   }
 
   document.getElementById("wordDisplay").textContent = display;
@@ -65,7 +73,15 @@ function updateHangman() {
 }
 
 
+function checkGameOver(){
+  if (remainingGuesses <= 0) {
+    gameOver = true;
+    document.getElementById('gameOverMessage').textContent = 'Game Over!';
+  }
+}
+
 function guessLetter() {
+  if (gameOver) return; 
   const letter = document.getElementById('letterInput').value.trim().toUpperCase();
   const warning = document.getElementById('warning');
 
@@ -96,6 +112,7 @@ function guessLetter() {
   }
   document.getElementById('letterInput').value = '';
   updateDisplay();
+  checkGameOver();
 }
 
 

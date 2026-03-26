@@ -9,6 +9,22 @@ body {
 	background: transparent;
 	width: 260px;
 	height: 340px;
+	overflow: hidden;
+}
+
+/* Ensure any image in hangman area fits the box */
+.hangman-stage img,
+#hangmanImage {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+/* All page images stay in bounds and scale nicely */
+img {
+	max-width: 100%;
+	height: auto;
 }
 
 /* Body-part containers hold images; hidden by default, show by adding .visible */
