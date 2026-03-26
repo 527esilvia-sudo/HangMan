@@ -8,15 +8,9 @@ let wins = 0
 let wrongGuesses = 0
 let userGuesses = []
 let gameOver = false
+let image = ''
 
 
-function checkGameOver(){
-  if (remainingGuesses <= 0) {
-    gameOver = true;
-    document.getElementById('gameOverMessage').textContent = 'Game Over!';
-
-  }
-}
 document.addEventListener("DOMContentLoaded", function () {
 
   startGame();
@@ -29,13 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function startGame() {
-  gameOver()
+ 
   let randomIndex = Math.floor(Math.random() * wordBank.length)
   secretWord = wordBank[randomIndex].toUpperCase()
   console.log(secretWord)
   guessedLetters = []
   wins = 0
   remainingGuesses = 6
+  wrongGuesses = 0
   gameOver = false
   updateDisplay()
   // • pick the random word yes
@@ -44,8 +39,14 @@ function startGame() {
   // • update elements on the page yes
 }
 
+function checkGameOver(){
+  if (remainingGuesses <= 0) {
+    gameOver = true;
+    document.getElementById('gameOverMessage').textContent = 'Game Over!';
+
+  }
+}
 function updateDisplay() {
-gameOver()
   let display = "";
 
   for (let i = 0; i < secretWord.length; i++) {
@@ -67,7 +68,7 @@ gameOver()
 
 
 function guessLetter() {
-  gameOver()
+  if (gameOver) return; 
   const letter = document.getElementById('letterInput').value.trim().toUpperCase();
   const warning = document.getElementById('warning');
 warning.textContent = '';
@@ -93,7 +94,51 @@ warning.textContent = '';
   }
   document.getElementById('letterInput').value = '';
   updateDisplay();
+  checkGameOver();
 }
+switch (wrongGuesses) {
+      case 0:
+         image = 'Untitled-1.png';
+
+         break;
+
+      case 1:
+         image = 'Untitled-2.png';
+         break;
+
+      case 2:
+         image = 'Untitled-3.png';
+
+         break;
+
+      case 3:
+         answer = 'Absolutely';
+         image = 'Untitled-4.png';
+         color = ' text-success';
+
+         break;
+
+      case 4:
+         image = 'Untitled-5.png';
+         break;
+
+      case 5:
+         image = 'Untitled-6.png';
+         break;
+
+      case 6:
+         image = 'Untitled-7.png';
+
+         break;
+
+      case 7:
+         image = 'Untitled-8.png';
+
+         break;
+       
+
+   }
+
 
 // function gameOver(){
 //   if (remainingGuesses <= 0) {
