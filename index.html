@@ -25,9 +25,9 @@
           <div class="card-body">
             <h5 class="card-title">Difficulty</h5>
             <div class="d-flex gap-2 mb-3">
-              <button id="easy" class="btn btn-success flex-fill">Easy</button>
-              <button id="medium" class="btn btn-warning flex-fill">Medium</button>
-              <button id="hard" class="btn btn-danger flex-fill">Hard</button>
+              <button id="easy" class="btn btn-success flex-fill" onclick ="startGame('easy')">Easy</button>
+              <button id="medium" class="btn btn-warning flex-fill" onclick ="startGame('medium')">Medium</button>
+              <button id="hard" class="btn btn-danger flex-fill" onclick ="startGame('hard')">Hard</button>
             </div>
 
             <button id="custom" class="btn btn-outline-primary w-100">Make it your own</button>
@@ -72,6 +72,7 @@
                       <h3 id="warning" class="warning text-warning">Please guess a letter</h3>
                     </div>
                  <button class="btn btn-outline-primary" onclick="guessLetter()">GUESS</button>
+                 <button onclick="startGame()" class="btn btn-secondary mt-2">Restart</button>
                 </div>
               </div>
             </div>

@@ -1,4 +1,18 @@
-wordBank = ['Tree', 'Bridge', 'Lantern', 'Whisper', 'Compass', 'Glacier', 'Chair', 'Book', 'Pen', 'Pencil']
+let easyWordBank = [
+  'cat', 'dog', 'car', 'sun', 'hat',
+  'map', 'cup', 'pen', 'box', 'bed'
+];
+
+let medWordBank = [
+  'button', 'screen', 'window', 'folder', 'mouse',
+  'keyboard', 'image', 'color', 'border', 'margin'
+];
+
+let hardWordBank = [
+  'function', 'variable', 'argument', 'parameter', 'boolean',
+  'callback', 'operator', 'element', 'property', 'document'
+];
+
 
 let secretWord = ''
 let guessedLetters = []
@@ -12,7 +26,7 @@ let hangmanImg = document.getElementById('stagesImg')
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  startGame();
+  startGame(level);
 
   document.getElementById('letterInput').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -21,22 +35,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function startGame() {
+function startGame(level) {
 
-  let randomIndex = Math.floor(Math.random() * wordBank.length)
-  secretWord = wordBank[randomIndex].toUpperCase()
+  let randomIndex
   console.log(secretWord)
   guessedLetters = []
   wins = 0
-  remainingGuesses = 6
+  remainingGuesses = 8
   wrongGuesses = 0
   gameOver = false
+
+   if (level === 'easy') {
+       randomIndex = Math.floor(Math.random() * easyWordBank.length)
+  secretWord = easyWordBankwordBank[randomIndex].toUpperCase()
+  } else if (level === 'medium') {
+       randomIndex = Math.floor(Math.random() * medWordBank.length)
+  secretWord = medWordBank[randomIndex].toUpperCase()
+  } else if (level === 'hard') {
+   randomIndex = Math.floor(Math.random() * hardWordBank.length)
+  secretWord = hardWordBank[randomIndex].toUpperCase()
+  }
   updateDisplay()
   updateHangman()
-  // • pick the random word yes
-  // • reset variables yes
-  // • build the starting display yes
-  // • update elements on the page yes
+
 }
 
 function checkGameOver() {
@@ -63,7 +84,7 @@ function updateDisplay() {
 
   document.getElementById("wordDisplay").textContent = display;
   document.getElementById("guessedLetters").textContent = "Guessed: " + guessedLetters.join(", ");
- updateImage()
+  updateImage()
 }
 
 
