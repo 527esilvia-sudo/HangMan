@@ -126,38 +126,30 @@ function updateImage() {
   console.log('remainingGuesses:', remainingGuesses)
   let image;
   switch (remainingGuesses) {
-    case 6:
-      image = 'Untitled-1.png';
-      break;
-
-    case 5:
-      image = 'Untitled-2.png';
-      break;
-
-    case 4:
-      image = 'Untitled-3.png';
-      break;
-
-    case 3:
-      image = 'Untitled-4.png';
-      break;
-
-    case 2:
-      image = 'Untitled-5.png';
-      break;
-
-    case 1:
-      image = 'Untitled-6.png';
-      break;
-
-    case 0:
-      image = 'Untitled-7.png';
-      break;
-
     case 7:
       image = 'Untitled-8.png';
       break;
-
+    case 6:
+      image = 'Untitled-1.png';
+      break;
+    case 5:
+      image = 'Untitled-2.png';
+      break;
+    case 4:
+      image = 'Untitled-3.png';
+      break;
+    case 3:
+      image = 'Untitled-4.png';
+      break;
+    case 2:
+      image = 'Untitled-5.png';
+      break;
+    case 1:
+      image = 'Untitled-6.png';
+      break;
+    case 0:
+      image = 'Untitled-7.png';
+      break;
   }
   const hangmanImg = document.getElementById('stagesImg');
   if (hangmanImg) hangmanImg.src = image;
@@ -168,8 +160,3 @@ function updateImage() {
 //     document.getElementById('gameOverMessage').textContent = 'Game Over! The word was: ' + secretWord;
 //   }
 // }
-
-
-
-
-
