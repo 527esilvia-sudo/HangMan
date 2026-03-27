@@ -11,7 +11,7 @@ let medWordBank = [
 let hardWordBank = [
   'function', 'variable', 'argument', 'parameter', 'boolean',
   'callback', 'operator', 'element', 'property', 'document'
-];
+]
 
 
 let secretWord = ''
