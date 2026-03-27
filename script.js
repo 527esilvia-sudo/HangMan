@@ -32,6 +32,7 @@ function startGame() {
   wrongGuesses = 0
   gameOver = false
   updateDisplay()
+  updateHangman()
   // • pick the random word yes
   // • reset variables yes
   // • build the starting display yes
@@ -70,19 +71,24 @@ function guessLetter() {
   if (gameOver) return;
   const letter = document.getElementById('letterInput').value.trim().toUpperCase();
   const warning = document.getElementById('warning');
-  warning.textContent = '';
+
+  // Ignore empty input (e.g., when Enter is pressed without typing)
+  if (letter === '') {
+    return;
+  }
 
   if (!/^[A-Z]$/.test(letter)) {
     warning.textContent = 'Please guess a single letter';
     console.log('Please guess a single letter');
+    warning.textContent = 'Please guess a letter';
     warning.style.display = 'block';
+    document.getElementById('letterInput').value = '';
     return;
   }
   if (guessedLetters.includes(letter)) {
     console.log('You already guessed that letter');
     warning.style.display = 'block';
     warning.textContent = 'You already guessed that letter';
-    return;
   } else {
     guessedLetters.push(letter);
     warning.style.display = 'none';
