@@ -92,3 +92,6 @@ img {
 .warning {
  display: none;
 }
+.unrevealed {
+  color: red;
+}
