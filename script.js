@@ -26,7 +26,7 @@ let hangmanImg = document.getElementById('stagesImg')
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  startGame(level);
+  startGame();
 
   document.getElementById('letterInput').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -44,10 +44,9 @@ function startGame(level) {
   remainingGuesses = 8
   wrongGuesses = 0
   gameOver = false
-
    if (level === 'easy') {
        randomIndex = Math.floor(Math.random() * easyWordBank.length)
-  secretWord = easyWordBankwordBank[randomIndex].toUpperCase()
+  secretWord = easyWordBank[randomIndex].toUpperCase()
   } else if (level === 'medium') {
        randomIndex = Math.floor(Math.random() * medWordBank.length)
   secretWord = medWordBank[randomIndex].toUpperCase()
