@@ -42,7 +42,9 @@ function startGame(level) {
   remainingGuesses = 8;
   wrongGuesses = 0;
   gameOver = false;
-  document.getElementById('gameOverMessage').textContent = '';
+  const gameMsg = document.getElementById('gameOverMessage');
+  gameMsg.textContent = '';
+  gameMsg.classList.remove('game-over');
   document.getElementById('remaining-count').textContent = remainingGuesses;
 
   if (level === 'easy') {
@@ -63,7 +65,9 @@ function startGame(level) {
 function checkGameOver() {
   if (remainingGuesses <= 0) {
     gameOver = true;
-    document.getElementById('gameOverMessage').textContent = 'Game Over!';
+    const gameMsg = document.getElementById('gameOverMessage');
+    gameMsg.textContent = 'Game Over!';
+    gameMsg.classList.add('game-over');
   }
 }
 
@@ -189,7 +193,9 @@ function launchConfettiSequence() {
 function checkWin() {
   if (secretWord.split('').every(letter => guessedLetters.includes(letter))) {
     gameOver = true;
-    document.getElementById('gameOverMessage').textContent = 'You Win! 🎉💥';
+    const gameMsg = document.getElementById('gameOverMessage');
+    gameMsg.textContent = 'You Win! 🎉💥';
+    gameMsg.classList.remove('game-over');
     launchConfettiSequence();
   }
 }

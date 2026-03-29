@@ -190,6 +190,45 @@ img {
 	color: #228B22; /* forest green */
 }
 
+/* Large full-screen blood-drip message for game over */
+#gameOverMessage.game-over {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  font-family: 'shlop', 'Creepster', 'Dripping Marker', 'Chiller', 'Impact', sans-serif;
+  font-size: clamp(4rem, 14vw, 14rem);
+  color: #a70000;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow:
+    0 0 6px #ff2a2a,
+    0 0 16px rgba(255,0,0,0.95),
+    0 0 40px rgba(150,0,0,0.85);
+  pointer-events: none;
+  animation: bloodDrip 2s ease-in-out infinite;
+  transform-origin: center;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.85));
+}
+
+#gameOverMessage.game-over::after {
+  content: "";
+  display: block;
+  margin: 1rem auto;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ff0000, transparent);
+  box-shadow: 0 0 15px rgba(255,0,0,0.8);
+}
+
+@keyframes bloodDrip {
+  0%, 100% { text-shadow: 0 0 4px #ff2a2a, 0 0 10px rgba(255,0,0,0.9), 0 0 30px rgba(180,0,0,0.8); }
+  50% { text-shadow: 0 0 12px #ff2a2a, 0 0 20px rgba(255,0,0,1), 0 0 40px rgba(200,0,0,1); }
+}
+
 #confetti-container {
   position: fixed;
   top: 0;
