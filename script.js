@@ -1,3 +1,4 @@
+// Word banks
 let easyWordBank = [
   'cat', 'dog', 'car', 'sun', 'hat',
   'map', 'cup', 'pen', 'box', 'bed'
@@ -13,74 +14,73 @@ let hardWordBank = [
   'callback', 'operator', 'element', 'property', 'document'
 ];
 
-let secretWord = ''
-let guessedLetters = []
-let remainingGuesses = 0
-let wins = 0
-let wrongGuesses = 0
-let gameOver = false
-let hangmanImg = document.getElementById('stagesImg')
+let secretWord = '';
+let guessedLetters = [];
+let remainingGuesses = 0;
+let wins = 0;
+let wrongGuesses = 0;
+let gameOver = false;
 
+// Run on page load
 document.addEventListener("DOMContentLoaded", function () {
-  startGame();
+  // Check URL for difficulty
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get('mode'); // "easy", "medium", "hard", "custom"
+  
+  startGame(mode); // auto-start if mode exists
 
+  // Enter key listener
   document.getElementById('letterInput').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-      guessLetter();
-    }
+    if (e.key === 'Enter') guessLetter();
   });
 });
 
 function startGame(level) {
-  let randomIndex
-  guessedLetters = []
-  wins = 0
-  remainingGuesses = 8
-  wrongGuesses = 0
-  gameOver = false
+  let randomIndex;
+  guessedLetters = [];
+  wins = 0;
+  remainingGuesses = 8;
+  wrongGuesses = 0;
+  gameOver = false;
   document.getElementById('gameOverMessage').textContent = '';
   document.getElementById('remaining-count').textContent = remainingGuesses;
 
   if (level === 'easy') {
-    randomIndex = Math.floor(Math.random() * easyWordBank.length)
-    secretWord = easyWordBank[randomIndex].toUpperCase()
+    randomIndex = Math.floor(Math.random() * easyWordBank.length);
+    secretWord = easyWordBank[randomIndex].toUpperCase();
   } else if (level === 'medium') {
-    randomIndex = Math.floor(Math.random() * medWordBank.length)
-    secretWord = medWordBank[randomIndex].toUpperCase()
+    randomIndex = Math.floor(Math.random() * medWordBank.length);
+    secretWord = medWordBank[randomIndex].toUpperCase();
   } else if (level === 'hard') {
-    randomIndex = Math.floor(Math.random() * hardWordBank.length)
-    secretWord = hardWordBank[randomIndex].toUpperCase()
+    randomIndex = Math.floor(Math.random() * hardWordBank.length);
+    secretWord = hardWordBank[randomIndex].toUpperCase();
   }
 
-  updateDisplay()
-  updateImage()
+  updateDisplay();
+  updateImage();
 }
 
 function checkGameOver() {
   if (remainingGuesses <= 0) {
     gameOver = true;
-    document.getElementById('gameOverMessage').textContent =
-      'Game Over!'
+    document.getElementById('gameOverMessage').textContent = 'Game Over!';
   }
 }
 
 function updateDisplay() {
   const displayDiv = document.getElementById("wordDisplay");
-  displayDiv.innerHTML = ""; // clear previous content
+  displayDiv.innerHTML = "";
 
   for (let i = 0; i < secretWord.length; i++) {
     const letter = secretWord.charAt(i);
     const letterElem = document.createElement("span");
 
     if (guessedLetters.includes(letter)) {
-      // guessed letters appear normally
       letterElem.textContent = letter + " ";
     } else if (gameOver) {
-      // unguessed letters revealed in red
       letterElem.textContent = letter + " ";
       letterElem.style.color = "red";
     } else {
-      // letters not guessed yet
       letterElem.textContent = "_ ";
     }
 
@@ -88,7 +88,7 @@ function updateDisplay() {
   }
 
   document.getElementById("guessedLetters").textContent = "Guessed: " + guessedLetters.join(", ");
-  updateImage()
+  updateImage();
 }
 
 function guessLetter() {
@@ -118,11 +118,16 @@ function guessLetter() {
   if (!secretWord.includes(letter)) {
     remainingGuesses--;
     document.getElementById('remaining-count').textContent = remainingGuesses;
+    // Add shake animation
+    const hangman = document.getElementById('hangman');
+    if (hangman) {
+      hangman.classList.add('shake');
+      setTimeout(() => hangman.classList.remove('shake'), 500);
+    }
   }
 
   document.getElementById('letterInput').value = '';
-
-  // ✅ check game over before updating display
+  checkWin();
   checkGameOver();
   updateDisplay();
 }
@@ -142,4 +147,49 @@ function updateImage() {
   }
   const hangmanImg = document.getElementById('stagesImg');
   if (hangmanImg) hangmanImg.src = image;
+}
+
+// Confetti sequence
+function launchConfettiSequence() {
+  var container = document.getElementById('confetti-container');
+  var colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#577590','#43aa8b','#4d908e','#f9844a','#f8961e','#f7b267'];
+  var animationDuration = 2000;
+
+  function createBurst() {
+    container.innerHTML = '';
+
+    for (var i = 0; i < 2000; i++) {
+      var confetti = document.createElement('div');
+      confetti.className = 'confetti';
+
+      var x = (Math.random() - 0.5) * 1000;
+      var y = (Math.random() - 0.5) * 1000;
+      var size = Math.floor(Math.random() * 8) + 4;
+      var color = colors[Math.floor(Math.random() * colors.length)];
+      var spin = Math.random() * 3 + 1;
+
+      confetti.style.setProperty('--x', x + 'px');
+      confetti.style.setProperty('--y', y + 'px');
+      confetti.style.setProperty('--size', size + 'px');
+      confetti.style.setProperty('--color', color);
+      confetti.style.setProperty('--spin', spin);
+
+      container.appendChild(confetti);
+    }
+
+    container.style.display = 'block';
+    setTimeout(function() {
+      container.style.display = 'none';
+    }, animationDuration);
+  }
+
+  createBurst();
+}
+
+function checkWin() {
+  if (secretWord.split('').every(letter => guessedLetters.includes(letter))) {
+    gameOver = true;
+    document.getElementById('gameOverMessage').textContent = 'You Win! 🎉💥';
+    launchConfettiSequence();
+  }
 }

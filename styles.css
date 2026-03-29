@@ -1,6 +1,15 @@
 /* Basic page spacing */
 body {
-	padding-bottom: 40px;
+	padding-bottom: 0;
+	background: #D2B48C;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Remove white boxes */
+.card {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
 }
 
 /* Hangman stage container */
@@ -10,6 +19,18 @@ body {
 	width: 260px;
 	height: 340px;
 	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 0 20px rgba(0,0,0,0.1);
+	transition: transform 0.1s ease;
+}
+
+.hangman-stage.shake {
+	animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+	20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
 /* Ensure any image in hangman area fits the box */
@@ -82,6 +103,61 @@ img {
 	opacity: 0.45;
 }
 
+/* Button styles */
+.btn {
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	transition: all 0.2s ease;
+}
+
+.btn-success {
+	background-color: #32CD32; /* lime green */
+	color: #fff;
+}
+
+.btn-success:hover {
+	background-color: #228B22; /* forest green */
+}
+
+.btn-warning {
+	background-color: #FFD700; /* gold */
+	color: #000;
+}
+
+.btn-warning:hover {
+	background-color: #DAA520; /* goldenrod */
+}
+
+.btn-danger {
+	background-color: #DC143C; /* crimson */
+	color: #fff;
+}
+
+.btn-danger:hover {
+	background-color: #B22222; /* firebrick */
+}
+
+.btn-outline-primary {
+	background-color: #4682B4; /* steel blue */
+	color: #fff;
+}
+
+.btn-outline-primary:hover {
+	background-color: #4169E1; /* royal blue */
+}
+
+/* Active/wrong states */
+.btn.wrong {
+	background-color: #dc3545; /* red */
+	color: #fff;
+}
+
+.btn.active {
+	background-color: #fd7e14; /* orange */
+	color: #fff;
+}
+
 /* Small screens: ensure hangman fits */
 @media (max-width: 576px) {
 	.hangman-stage { width: 200px; height: 260px; }
@@ -91,7 +167,99 @@ img {
 .card .card-body { align-items: flex-start; }
 .warning {
  display: none;
+ color: #fd7e14;
+ font-weight: bold;
 }
 .unrevealed {
-  color: red;
+  color: #dc3545;
+}
+
+/* Highlights */
+#remaining-count {
+	color: #B22222; /* firebrick */
+	font-weight: bold;
+}
+
+#guessedLetters {
+	color: #2F4F4F; /* dark slate gray */
+	font-weight: 500;
+}
+
+#gameOverMessage {
+	font-weight: bold;
+	color: #228B22; /* forest green */
+}
+
+#confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  opacity: 0.8;
+  top: 0;
+  animation: fall 3s linear forwards;
+}
+
+#confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: 10px;
+  height: 10px;
+  background-color: var(--color);
+  opacity: 0.9;
+  animation: fall 3s ease-in forwards;
+  animation-delay: var(--delay);
+}
+#confetti-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  background-color: var(--color, #f94144);
+  border-radius: 2px;
+  transform: translate(0,0) rotate(0deg);
+  animation: burst 2s ease-out forwards;
+  opacity: 1;
+}
+
+@keyframes burst {
+  0% {
+    transform: translate(0,0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) rotate(calc(var(--spin) * 360deg)) scale(0.8);
+    opacity: 0;
+  }
 }
