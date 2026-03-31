@@ -1,17 +1,22 @@
-// Word banks
+
 let easyWordBank = [
-  'cat', 'dog', 'car', 'sun', 'hat',
-  'map', 'cup', 'pen', 'box', 'bed'
+  'cat', 'dog', 'sun', 'hat', 'map',
+  'cup', 'pen', 'bed', 'box', 'car',
+  'tree', 'fish', 'bird', 'ball', 'book',
+  'shoe', 'milk', 'door', 'hand', 'star'
 ];
 
 let medWordBank = [
-  'button', 'screen', 'window', 'folder', 'mouse',
-  'keyboard', 'image', 'color', 'border', 'margin'
+  'garden', 'window', 'button', 'picture', 'family',
+  'school', 'forest', 'mountain', 'pencil', 'animal',
+  'friend', 'river', 'letter', 'orange', 'market',
+  'travel', 'bridge', 'summer', 'circle', 'puzzle'
 ];
-
 let hardWordBank = [
-  'function', 'variable', 'argument', 'parameter', 'boolean',
-  'callback', 'operator', 'element', 'property', 'document'
+  'elephant', 'chocolate', 'umbrella', 'adventure', 'pineapple',
+  'computer', 'dinosaur', 'astronomy', 'blueberry', 'happiness',
+  'backpack', 'telephone', 'triangle', 'engineer', 'notebook',
+  'campfire', 'volcano', 'headphones', 'skyscraper', 'photograph'
 ];
 
 let secretWord = '';
@@ -20,6 +25,7 @@ let remainingGuesses = 0;
 let wins = 0;
 let wrongGuesses = 0;
 let gameOver = false;
+let currentLevel = '';
 
 // Run on page load
 document.addEventListener("DOMContentLoaded", function () {
@@ -37,6 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function startGame(level) {
   let randomIndex;
+  // Use stored level if no level is provided (restart case)
+  if (!level) {
+    level = currentLevel;
+  } else {
+    currentLevel = level;
+  }
   guessedLetters = [];
   wins = 0;
   remainingGuesses = 8;
@@ -83,7 +95,7 @@ function updateDisplay() {
       letterElem.textContent = letter + " ";
     } else if (gameOver) {
       letterElem.textContent = letter + " ";
-      letterElem.style.color = "red";
+      letterElem.style.color = "#FBBF24";
     } else {
       letterElem.textContent = "_ ";
     }
