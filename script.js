@@ -104,9 +104,9 @@ function updateDisplay() {
 
 // GUESS LETTER
 function guessLetter() {
-    if (gameOver) {
-        return;
-    }
+   if (gameOver && remainingGuesses > 0) {
+    return; // Only block updates after a WIN
+}
 
     const inputBox = document.getElementById("letterInput");
     const warning = document.getElementById("warning");
@@ -155,9 +155,6 @@ function guessLetter() {
 
 // UPDATE IMAGE
 function updateImage() {
-  if (gameOver) {
-    return;
-}
     let image = "";
 
     if (remainingGuesses === 8) image = "Untitled-1.png";
@@ -170,8 +167,7 @@ function updateImage() {
     if (remainingGuesses === 1) image = "Untitled-8.png";
     if (remainingGuesses === 0) image = "Untitled-9.png";
 
-    const hangmanImg = document.getElementById("stagesImg");
-    hangmanImg.src = image;
+    document.getElementById("stagesImg").src = image;
 }
 
 // CHECK LOSE
