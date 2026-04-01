@@ -93,7 +93,9 @@ function updateDisplay() {
 
     if (guessedLetters.includes(letter)) {
       letterElem.textContent = letter + " ";
-    } else if (gameOver) {
+    } else if (gameOver) 
+      // code from google
+      {
       letterElem.textContent = letter + " ";
       letterElem.style.color = "#FBBF24";
     } else {

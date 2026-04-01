@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+
 <body>
   <main class="container">
     <div class="text-center">
@@ -31,11 +31,11 @@
         <p id="guessedLetters" class="mb-3">Guessed: </p>
         <div id="wordDisplay" class="fs-3 mb-3">_ _ _ _ _</div>
         <div id="gameOverMessage" class="mb-3"></div>
-        <div class="d-inline-flex gap-2 align-items-center">
-          <input type="text" class="form-control" id="letterInput" placeholder="Guess a letter" maxlength="1" style="width: auto;">
-          <button class="btn btn-primary" onclick="guessLetter()">GUESS</button>
-          <button onclick="startGame()" class="btn btn-secondary">Restart</button>
-        </div>
+       <div class="input-buttons-container">
+  <input type="text" class="form-control" id="letterInput" placeholder="Guess a letter" maxlength="1" style="width: auto;">
+  <button class="btn btn-primary" onclick="guessLetter()">GUESS</button>
+  <button class="btn btn-secondary" onclick="startGame()">Restart</button>
+</div>
         <h3 id="warning" class="warning text-warning mt-2">Please guess a letter</h3>
       </div>
     </div>
