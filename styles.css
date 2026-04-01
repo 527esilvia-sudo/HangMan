@@ -1,45 +1,44 @@
-/* ---------- PAGE & BODY ---------- */
+/* ---------------------------------------------------
+   PAGE & BODY
+--------------------------------------------------- */
 html, body {
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 body {
+  min-height: 100vh;
   padding-bottom: 0.8rem;
-  background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 35px,
-      rgba(255, 255, 255, 0.02) 35px,
-      rgba(255, 255, 255, 0.02) 70px
-    ),
-    radial-gradient(circle at center, #1F2937 0%, #111827 100%);
   font-family: 'Roboto Mono', 'IBM Plex Mono', monospace;
   color: #e5e7eb;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 35px,
+      rgba(255,255,255,0.02) 35px 70px
+    ),
+    radial-gradient(circle at center, #1F2937 0%, #111827 100%);
   background-attachment: fixed;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
-  min-height: 100vh;
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
 }
 
 @media(max-height: 700px) {
-  body {
-    min-height: auto;
-  }
+  body { min-height: auto; }
 }
 
-/* ---------- HANGMAN STAGE ---------- */
+/* ---------------------------------------------------
+   HANGMAN STAGE
+--------------------------------------------------- */
 .hangman-stage {
   position: relative;
-  background: #111827;
   width: 280px;
   height: 360px;
   max-width: 92vw;
   max-height: 50vh;
-  overflow: hidden;
+  background: #111827;
   border: 2px solid #374151;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-  border-radius: 0px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
   transition: transform 0.1s ease;
 }
 
@@ -48,197 +47,213 @@ body {
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+  0%,100% { transform: translateX(0); }
+  10%,30%,50%,70%,90% { transform: translateX(-5px); }
+  20%,40%,60%,80% { transform: translateX(5px); }
 }
 
-.hangman-stage img, #hangmanImage {
+/* Smooth image fade transition */
+.hangman-stage img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
-  image-rendering: crisp-edges;
-  -webkit-optimize-contrast: crisp-edges;
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
 }
 
-/* ---------- BODY PARTS ---------- */
-.man-part { display: none; }
-.man-part.visible { display: block; }
-.man-part img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.hangman-stage img.fade-out { opacity: 0; }
+.hangman-stage img.fade-in  { opacity: 1; }
 
-/* ---------- WORD DISPLAY ---------- */
+/* ---------------------------------------------------
+   WORD DISPLAY
+--------------------------------------------------- */
 #wordDisplay {
   display: inline-block;
   position: relative;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #e5e7eb;
   margin: 0.6rem auto;
-  letter-spacing: 0.4rem;
   padding-bottom: 0.4rem;
   min-width: 10ch;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.4rem;
   text-align: center;
-  box-sizing: border-box;
+  color: #e5e7eb;
 }
 
 #wordDisplay::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   bottom: 0.08rem;
-  border-bottom: 3px solid #FBBF24; /* single line */
+  border-bottom: 3px solid #FBBF24;
 }
 
-/* ---------- WARNING MESSAGE ---------- */
+/* ---------------------------------------------------
+   WARNING MESSAGE
+--------------------------------------------------- */
 .warning {
-  display: block;
-  visibility: visible;
+  display: none;
   min-height: 1.2rem;
+  margin-top: 0.2rem;
+  text-align: center;
   color: #FBBF24;
   font-weight: bold;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: 0.2rem;
-  line-height: 1.2;
-  text-align: center;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-/* ---------- INPUT & BUTTON ROW ---------- */
+/* ---------------------------------------------------
+   INPUT + BUTTONS
+--------------------------------------------------- */
 .input-buttons-container {
   display: flex;
-  gap: 0.5rem;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
   margin-top: 0.25rem;
 }
 
-/* ---------- TEXTBOX ---------- */
 .form-control {
+  width: auto;
+  text-align: center;
+  font-weight: 600;
+  color: #e5e7eb;
+  background-color: #1f2937;
   border: 1px solid #4b5563;
   border-radius: 2px;
-  color: #e5e7eb;
-  font-weight: 600;
-  background-color: #1f2937;
-  width: auto;
-  display: inline-block;
 }
 
 .form-control:focus {
   border-color: #D97706;
-  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
-  background-color: #1f2937;
-  color: #e5e7eb;
+  box-shadow: 0 0 0 3px rgba(217,119,6,0.2);
 }
 
-/* ---------- BUTTONS ---------- */
+/* ---------------------------------------------------
+   BUTTONS
+--------------------------------------------------- */
+.btn-primary,
+.btn-secondary {
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.15s ease-in-out;
+}
+
 .btn-primary {
   background-color: #F59E0B;
   color: #111827;
-  border: none;
-  border-radius: 2px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
   box-shadow: 0 4px 0 #d97706;
-  transition: all 0.15s ease-in-out;
 }
 
 .btn-primary:hover {
   background-color: #FBBF24;
-  box-shadow: 0 4px 0 #d97706;
   transform: translateY(-2px);
 }
 
 .btn-primary:active {
   background-color: #F59E0B;
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #d97706;
 }
 
 .btn-secondary {
   background-color: #4b5563;
   color: #e5e7eb;
-  border: none;
-  border-radius: 2px;
-  font-weight: 700;
-  font-size: 0.9rem;
   box-shadow: 0 4px 0 #1f2937;
-  transition: all 0.15s ease-in-out;
 }
 
 .btn-secondary:hover {
   background-color: #64748b;
-  box-shadow: 0 4px 0 #1f2937;
   transform: translateY(-2px);
 }
 
 .btn-secondary:active {
   background-color: #4b5563;
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #1f2937;
 }
 
-/* ---------- GAME OVER MESSAGE ---------- */
+/* ---------------------------------------------------
+   GAME OVER MESSAGE
+--------------------------------------------------- */
 #gameOverMessage.game-over {
   position: fixed;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  font-family: 'IBM Plex Mono', 'Roboto Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-weight: 900;
   font-size: clamp(3rem, 11vw, 8rem);
   color: #FBBF24;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  line-height: 1.1;
   text-align: center;
   pointer-events: none;
-  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7));
-  animation: gameOverDelay 2.4s ease-in-out forwards;
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
-/* Remove unwanted line */
-#gameOverMessage.game-over::after {
-  content: none;
+@keyframes pulseGlow {
+  0%   { filter: drop-shadow(0 0 8px rgba(251,191,36,0.4)); }
+  50%  { filter: drop-shadow(0 0 22px rgba(251,191,36,1)); }
+  100% { filter: drop-shadow(0 0 8px rgba(251,191,36,0.4)); }
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ---------------------------------------------------
+   CONFETTI
+--------------------------------------------------- */
+#confetti-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9998;
+  opacity: 0;
+}
+
+.confetti {
+  position: absolute;
+  display: block;
+  border-radius: 2px;
+  opacity: 1;
+  animation: confettiDrift 6s linear forwards;
+}
+
+@keyframes confettiDrift {
+  0% {
+    transform: translateY(-40vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(140vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------- */
 @media (max-width: 576px) {
   .hangman-stage {
     width: 200px;
     height: 260px;
-    margin: 0.5rem auto;
   }
   #wordDisplay {
     font-size: 1.3rem;
     letter-spacing: 0.8em;
-    margin-bottom: 0.25rem;
-  }
-  #keyboard .letter-btn {
-    min-width: 35px;
-    height: 35px;
-    font-size: 0.8rem;
-    border-bottom: 5px solid #92400E;
-    margin: 1px;
-  }
-  #keyboard .letter-btn:active {
-    border-bottom: 0px;
-    transform: translateY(5px);
-  }
-  .btn {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.75rem;
   }
   .input-buttons-container {
     flex-direction: column;
-    gap: 0.25rem;
     width: 100%;
   }
-  #letterInput { width: 100%; max-width: none; margin-bottom: 0.25rem; }
+  #letterInput {
+    width: 100%;
+  }
 }

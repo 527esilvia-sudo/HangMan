@@ -1,215 +1,250 @@
-
+// WORD BANKS
 let easyWordBank = [
-  'cat', 'dog', 'sun', 'hat', 'map',
-  'cup', 'pen', 'bed', 'box', 'car',
-  'tree', 'fish', 'bird', 'ball', 'book',
-  'shoe', 'milk', 'door', 'hand', 'star'
+    'cat','dog','sun','hat','map',
+    'cup','pen','bed','box','car',
+    'tree','fish','bird','ball','book',
+    'shoe','milk','door','hand','star'
 ];
 
 let medWordBank = [
-  'garden', 'window', 'button', 'picture', 'family',
-  'school', 'forest', 'mountain', 'pencil', 'animal',
-  'friend', 'river', 'letter', 'orange', 'market',
-  'travel', 'bridge', 'summer', 'circle', 'puzzle'
-];
-let hardWordBank = [
-  'elephant', 'chocolate', 'umbrella', 'adventure', 'pineapple',
-  'computer', 'dinosaur', 'astronomy', 'blueberry', 'happiness',
-  'backpack', 'telephone', 'triangle', 'engineer', 'notebook',
-  'campfire', 'volcano', 'headphones', 'skyscraper', 'photograph'
+    'garden','window','button','picture','family',
+    'school','forest','mountain','pencil','animal',
+    'friend','river','letter','orange','market',
+    'travel','bridge','summer','circle','puzzle'
 ];
 
-let secretWord = '';
+let hardWordBank = [
+    'elephant','chocolate','umbrella','adventure','pineapple',
+    'computer','dinosaur','astronomy','blueberry','happiness',
+    'backpack','telephone','triangle','engineer','notebook',
+    'campfire','volcano','headphones','skyscraper','photograph'
+];
+
+// GAME VARIABLES
+let secretWord = "";
 let guessedLetters = [];
 let remainingGuesses = 0;
-let wins = 0;
 let wrongGuesses = 0;
 let gameOver = false;
-let currentLevel = '';
+let currentLevel = "";
 
-// Run on page load
+// PAGE LOAD
 document.addEventListener("DOMContentLoaded", function () {
-  // Check URL for difficulty
-  const params = new URLSearchParams(window.location.search);
-  const mode = params.get('mode'); // "easy", "medium", "hard", "custom"
-  
-  startGame(mode); // auto-start if mode exists
 
-  // Enter key listener
-  document.getElementById('letterInput').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') guessLetter();
-  });
+    // AI-assisted URL param difficulty
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+
+    startGame(mode);
+
+    document.getElementById("letterInput").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            guessLetter();
+        }
+    });
 });
 
+// START GAME
 function startGame(level) {
-  let randomIndex;
-  // Use stored level if no level is provided (restart case)
-  if (!level) {
-    level = currentLevel;
-  } else {
-    currentLevel = level;
-  }
-  guessedLetters = [];
-  wins = 0;
-  remainingGuesses = 8;
-  wrongGuesses = 0;
-  gameOver = false;
-  const gameMsg = document.getElementById('gameOverMessage');
-  gameMsg.textContent = '';
-  gameMsg.classList.remove('game-over');
-  document.getElementById('remaining-count').textContent = remainingGuesses;
+    let randomIndex;
 
-  if (level === 'easy') {
-    randomIndex = Math.floor(Math.random() * easyWordBank.length);
-    secretWord = easyWordBank[randomIndex].toUpperCase();
-  } else if (level === 'medium') {
-    randomIndex = Math.floor(Math.random() * medWordBank.length);
-    secretWord = medWordBank[randomIndex].toUpperCase();
-  } else if (level === 'hard') {
-    randomIndex = Math.floor(Math.random() * hardWordBank.length);
-    secretWord = hardWordBank[randomIndex].toUpperCase();
-  }
+    if (!level) {
+        level = currentLevel;
+    } else {
+        currentLevel = level;
+    }
 
-  updateDisplay();
-  updateImage();
+    guessedLetters = [];
+    wrongGuesses = 0;
+    remainingGuesses = 8;
+    gameOver = false;
+
+    document.getElementById("remaining-count").textContent = remainingGuesses;
+
+    const gameMsg = document.getElementById("gameOverMessage");
+    gameMsg.textContent = "";
+    gameMsg.classList.remove("game-over");
+
+    // Pick random word
+    if (level === "easy") {
+        randomIndex = Math.floor(Math.random() * easyWordBank.length);
+        secretWord = easyWordBank[randomIndex].toUpperCase();
+    } else if (level === "medium") {
+        randomIndex = Math.floor(Math.random() * medWordBank.length);
+        secretWord = medWordBank[randomIndex].toUpperCase();
+    } else if (level === "hard") {
+        randomIndex = Math.floor(Math.random() * hardWordBank.length);
+        secretWord = hardWordBank[randomIndex].toUpperCase();
+    }
+
+    updateDisplay();
+    updateImage();
 }
 
-function checkGameOver() {
-  if (remainingGuesses <= 0) {
-    gameOver = true;
-    const gameMsg = document.getElementById('gameOverMessage');
-    gameMsg.textContent = 'Game Over!';
-    gameMsg.classList.add('game-over');
-  }
-}
-
+// UPDATE WORD DISPLAY
 function updateDisplay() {
-  const displayDiv = document.getElementById("wordDisplay");
-  displayDiv.innerHTML = "";
+    let display = "";
 
-  for (let i = 0; i < secretWord.length; i++) {
-    const letter = secretWord.charAt(i);
-    const letterElem = document.createElement("span");
+    for (let i = 0; i < secretWord.length; i++) {
+        let letter = secretWord.charAt(i);
+
+        if (guessedLetters.includes(letter)) {
+            display += letter + " ";
+        } else if (gameOver) {
+            display += letter + " ";
+        } else {
+            display += "_ ";
+        }
+    }
+
+    document.getElementById("wordDisplay").textContent = display;
+    document.getElementById("guessedLetters").textContent =
+        "Guessed: " + guessedLetters.join(", ");
+}
+
+// GUESS LETTER
+function guessLetter() {
+    if (gameOver) {
+        return;
+    }
+
+    const inputBox = document.getElementById("letterInput");
+    const warning = document.getElementById("warning");
+    const letter = inputBox.value.trim().toUpperCase();
+
+    if (letter === "") {
+        return;
+    }
+
+    if (!/^[A-Z]$/.test(letter)) {
+        warning.textContent = "Please guess a letter";
+        warning.style.display = "block";
+        inputBox.value = "";
+        return;
+    }
 
     if (guessedLetters.includes(letter)) {
-      letterElem.textContent = letter + " ";
-    } else if (gameOver) 
-      // code from google
-      {
-      letterElem.textContent = letter + " ";
-      letterElem.style.color = "#FBBF24";
-    } else {
-      letterElem.textContent = "_ ";
+        warning.textContent = "You already guessed that letter";
+        warning.style.display = "block";
+        return;
     }
 
-    displayDiv.appendChild(letterElem);
-  }
-
-  document.getElementById("guessedLetters").textContent = "Guessed: " + guessedLetters.join(", ");
-  updateImage();
-}
-
-function guessLetter() {
-  if (gameOver) return;
-
-  const letter = document.getElementById('letterInput').value.trim().toUpperCase();
-  const warning = document.getElementById('warning');
-
-  if (letter === '') return;
-
-  if (!/^[A-Z]$/.test(letter)) {
-    warning.textContent = 'Please guess a letter';
-    warning.style.display = 'block';
-    document.getElementById('letterInput').value = '';
-    return;
-  }
-
-  if (guessedLetters.includes(letter)) {
-    warning.textContent = 'You already guessed that letter';
-    warning.style.display = 'block';
-    return;
-  } else {
     guessedLetters.push(letter);
-    warning.style.display = 'none';
-  }
+    warning.style.display = "none";
 
-  if (!secretWord.includes(letter)) {
-    remainingGuesses--;
-    document.getElementById('remaining-count').textContent = remainingGuesses;
-    // Add shake animation
-    const hangman = document.getElementById('hangman');
-    if (hangman) {
-      hangman.classList.add('shake');
-      setTimeout(() => hangman.classList.remove('shake'), 500);
+    if (!secretWord.includes(letter)) {
+        remainingGuesses--;
+        document.getElementById("remaining-count").textContent = remainingGuesses;
+
+        const hangman = document.getElementById("hangman");
+        if (hangman) {
+            hangman.classList.add("shake");
+            setTimeout(function () {
+                hangman.classList.remove("shake");
+            }, 500);
+        }
     }
-  }
 
-  document.getElementById('letterInput').value = '';
-  checkWin();
-  checkGameOver();
-  updateDisplay();
+    inputBox.value = "";
+
+    checkWin();
+    checkGameOver();
+    updateDisplay();
+    updateImage();
 }
 
+// UPDATE IMAGE
 function updateImage() {
-  let image;
-  switch (remainingGuesses) {
-    case 8: image = 'Untitled-1.png'; break;
-    case 7: image = 'Untitled-2.png'; break;
-    case 6: image = 'Untitled-3.png'; break;
-    case 5: image = 'Untitled-4.png'; break;
-    case 4: image = 'Untitled-5.png'; break;
-    case 3: image = 'Untitled-6.png'; break;
-    case 2: image = 'Untitled-7.png'; break;
-    case 1: image = 'Untitled-8.png'; break;
-    case 0: image = 'Untitled-9.png'; break;
-  }
-  const hangmanImg = document.getElementById('stagesImg');
-  if (hangmanImg) hangmanImg.src = image;
+  if (gameOver) {
+    return;
+}
+    let image = "";
+
+    if (remainingGuesses === 8) image = "Untitled-1.png";
+    if (remainingGuesses === 7) image = "Untitled-2.png";
+    if (remainingGuesses === 6) image = "Untitled-3.png";
+    if (remainingGuesses === 5) image = "Untitled-4.png";
+    if (remainingGuesses === 4) image = "Untitled-5.png";
+    if (remainingGuesses === 3) image = "Untitled-6.png";
+    if (remainingGuesses === 2) image = "Untitled-7.png";
+    if (remainingGuesses === 1) image = "Untitled-8.png";
+    if (remainingGuesses === 0) image = "Untitled-9.png";
+
+    const hangmanImg = document.getElementById("stagesImg");
+    hangmanImg.src = image;
 }
 
-// Confetti sequence
-function launchConfettiSequence() {
-  var container = document.getElementById('confetti-container');
-  var colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#577590','#43aa8b','#4d908e','#f9844a','#f8961e','#f7b267'];
-  var animationDuration = 2000;
+// CHECK LOSE
+function checkGameOver() {
+    if (remainingGuesses <= 0) {
+        gameOver = true;
 
-  function createBurst() {
-    container.innerHTML = '';
+        const gameMsg = document.getElementById("gameOverMessage");
+        gameMsg.textContent = "Game Over!";
+        gameMsg.classList.add("game-over");
+    }
+}
 
-    for (var i = 0; i < 2000; i++) {
-      var confetti = document.createElement('div');
-      confetti.className = 'confetti';
+// CHECK WIN
+function checkWin() {
+    let allFound = true;
 
-      var x = (Math.random() - 0.5) * 1000;
-      var y = (Math.random() - 0.5) * 1000;
-      var size = Math.floor(Math.random() * 8) + 4;
-      var color = colors[Math.floor(Math.random() * colors.length)];
-      var spin = Math.random() * 3 + 1;
-
-      confetti.style.setProperty('--x', x + 'px');
-      confetti.style.setProperty('--y', y + 'px');
-      confetti.style.setProperty('--size', size + 'px');
-      confetti.style.setProperty('--color', color);
-      confetti.style.setProperty('--spin', spin);
-
-      container.appendChild(confetti);
+    for (let i = 0; i < secretWord.length; i++) {
+        if (!guessedLetters.includes(secretWord.charAt(i))) {
+            allFound = false;
+        }
     }
 
-    container.style.display = 'block';
-    setTimeout(function() {
-      container.style.display = 'none';
-    }, animationDuration);
-  }
+    if (allFound) {
+        gameOver = true;
 
-  createBurst();
+        const winImg = document.getElementById("stagesImg");
+        winImg.src = "Untitled-10 (3).png";
+
+        const gameMsg = document.getElementById("gameOverMessage");
+        gameMsg.textContent = "You Win! 🎉💥";
+        gameMsg.classList.remove("game-over");
+
+        launchConfettiSequence(); // AI-assisted
+    }
 }
 
-function checkWin() {
-  if (secretWord.split('').every(letter => guessedLetters.includes(letter))) {
-    gameOver = true;
-    const gameMsg = document.getElementById('gameOverMessage');
-    gameMsg.textContent = 'You Win! 🎉💥';
-    gameMsg.classList.remove('game-over');
-    launchConfettiSequence();
-  }
+// CONFETTI (AI-assisted)
+function launchConfettiSequence() {
+    const container = document.getElementById("confetti-container");
+    container.innerHTML = "";
+
+    const colors = [
+        "#f94144","#f3722c","#f9c74f","#90be6d",
+        "#577590","#43aa8b","#4d908e","#f9844a",
+        "#f8961e","#f7b267"
+    ];
+
+    const totalPieces = 450;
+
+    for (let i = 0; i < totalPieces; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+
+        const size = Math.floor(Math.random() * 10) + 6;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        confetti.style.width = size + "px";
+        confetti.style.height = size + "px";
+        confetti.style.backgroundColor = color;
+
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+
+        confetti.style.left = x + "px";
+        confetti.style.top = y + "px";
+
+        container.appendChild(confetti);
+    }
+
+    container.style.opacity = "1";
+
+    setTimeout(function () {
+        container.style.opacity = "0";
+    }, 6000);
 }
