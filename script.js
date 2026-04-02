@@ -155,6 +155,9 @@ function guessLetter() {
 
 // UPDATE IMAGE
 function updateImage() {
+     if (gameOver && remainingGuesses > 0) {
+        return; // Prevent overwriting the win image
+    }
     let image = "";
 
     if (remainingGuesses === 8) image = "Untitled-1.png";
@@ -195,7 +198,7 @@ function checkWin() {
         gameOver = true;
 
         const winImg = document.getElementById("stagesImg");
-        winImg.src = "Untitled-10 (3).png";
+        winImg.src = "Untitled-10.png";
 
         const gameMsg = document.getElementById("gameOverMessage");
         gameMsg.textContent = "You Win! 🎉💥";
