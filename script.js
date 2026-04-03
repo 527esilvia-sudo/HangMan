@@ -1,24 +1,33 @@
 // WORD BANKS
 let easyWordBank = [
-    'cat','dog','sun','hat','map',
-    'cup','pen','bed','box','car',
-    'tree','fish','bird','ball','book',
-    'shoe','milk','door','hand','star'
+    'cat', 'dog', 'sun', 'hat', 'map',
+    'cup', 'pen', 'bed', 'box', 'car',
+    'tree', 'fish', 'bird', 'ball', 'book',
+    'shoe', 'milk', 'door', 'hand', 'star'
 ];
 
 let medWordBank = [
-    'garden','window','button','picture','family',
-    'school','forest','mountain','pencil','animal',
-    'friend','river','letter','orange','market',
-    'travel','bridge','summer','circle','puzzle'
+    'garden', 'window', 'button', 'picture', 'family',
+    'school', 'forest', 'mountain', 'pencil', 'animal',
+    'friend', 'river', 'letter', 'orange', 'market',
+    'travel', 'bridge', 'summer', 'circle', 'puzzle'
 ];
 
 let hardWordBank = [
-    'elephant','chocolate','umbrella','adventure','pineapple',
-    'computer','dinosaur','astronomy','blueberry','happiness',
-    'backpack','telephone','triangle','engineer','notebook',
-    'campfire','volcano','headphones','skyscraper','photograph'
+    'elephant', 'chocolate', 'umbrella', 'adventure', 'pineapple',
+    'computer', 'dinosaur', 'astronomy', 'blueberry', 'happiness',
+    'backpack', 'telephone', 'triangle', 'engineer', 'notebook',
+    'campfire', 'volcano', 'headphones', 'skyscraper', 'photograph'
 ];
+let randomWordBank = [
+    'telescope', 'coin', 'basket', 'electricity', 'rain',
+    'gallery', 'sock', 'rocket', 'microscope', 'leaf',
+    'architecture', 'lamp', 'silver', 'constellation', 'pocket',
+    'gravity', 'island', 'festival', 'diamond', 'book'
+];
+
+
+
 
 // GAME VARIABLES
 let secretWord = "";
@@ -76,6 +85,10 @@ function startGame(level) {
         randomIndex = Math.floor(Math.random() * hardWordBank.length);
         secretWord = hardWordBank[randomIndex].toUpperCase();
     }
+    else if (level === "random") {
+        randomIndex = Math.floor(Math.random() * randomWordBank.length);
+        secretWord = randomWordBank[randomIndex].toUpperCase();
+    }
 
     updateDisplay();
     updateImage();
@@ -104,9 +117,9 @@ function updateDisplay() {
 
 // GUESS LETTER
 function guessLetter() {
-   if (gameOver && remainingGuesses > 0) {
-    return; // Only block updates after a WIN
-}
+    if (gameOver && remainingGuesses > 0) {
+        return; // Only block updates after a WIN
+    }
 
     const inputBox = document.getElementById("letterInput");
     const warning = document.getElementById("warning");
@@ -136,12 +149,16 @@ function guessLetter() {
         remainingGuesses--;
         document.getElementById("remaining-count").textContent = remainingGuesses;
 
+        // got from google
         const hangman = document.getElementById("hangman");
         if (hangman) {
             hangman.classList.add("shake");
             setTimeout(function () {
                 hangman.classList.remove("shake");
             }, 500);
+        }
+        if (remainingGuesses === 1) {
+            document.body.classList.add("danger-mode");
         }
     }
 
@@ -155,7 +172,7 @@ function guessLetter() {
 
 // UPDATE IMAGE
 function updateImage() {
-     if (gameOver && remainingGuesses > 0) {
+    if (gameOver && remainingGuesses > 0) {
         return; // Prevent overwriting the win image
     }
     let image = "";
@@ -214,9 +231,9 @@ function launchConfettiSequence() {
     container.innerHTML = "";
 
     const colors = [
-        "#f94144","#f3722c","#f9c74f","#90be6d",
-        "#577590","#43aa8b","#4d908e","#f9844a",
-        "#f8961e","#f7b267"
+        "#f94144", "#f3722c", "#f9c74f", "#90be6d",
+        "#577590", "#43aa8b", "#4d908e", "#f9844a",
+        "#f8961e", "#f7b267"
     ];
 
     const totalPieces = 450;
