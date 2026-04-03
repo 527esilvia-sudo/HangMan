@@ -204,35 +204,46 @@ body {
   100% { filter: drop-shadow(0 0 8px rgba(251,191,36,0.4)); }
 }
 
-/* ---------------------------------------------------
-   DANGER MODE (low-health style)
---------------------------------------------------- */
-/* ---------------------------------------------------
-   DANGER MODE FOR ENTIRE SCREEN
---------------------------------------------------- */
 .danger-mode {
-  animation: screenDangerPulse 1s infinite alternate;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10000;
+  background-color: rgba(0,0,0,0); 
+  box-shadow: inset 0 0 50px rgba(255,0,0,0); /* start invisible */
+  opacity: 0; /* fade-in start */
+  transition: opacity 1s ease; /* smooth fade-in */
 }
 
-/* Pulsing red overlay + dim effect */
-@keyframes screenDangerPulse {
+.danger-mode-active {
+  opacity: 1; /* fade in to full visibility */
+  animation: dangerThump 4s infinite; /* slower thump */
+}
+
+@keyframes dangerThump {
   0% {
-    background-color: rgba(255, 0, 0, 0.1); /* subtle red tint */
-    box-shadow: inset 0 0 0 rgba(255, 0, 0, 0);
-    filter: brightness(1);
+    background-color: rgba(0,0,0,0); 
+    box-shadow: inset 0 0 100px rgba(255,0,0,0.6); 
+  }
+  25% {
+    background-color: rgba(0,0,0,0.15); 
+    box-shadow: inset 0 0 100px rgba(255,0,0,0.6); 
   }
   50% {
-    background-color: rgba(255, 0, 0, 0.3); /* stronger red tint */
-    box-shadow: inset 0 0 50px rgba(255, 0, 0, 0.7);
-    filter: brightness(0.7); /* dims everything */
+    background-color: rgba(0,0,0,0.3); 
+    box-shadow: inset 0 0 100px rgba(255,0,0,0.6); 
+  }
+  75% {
+    background-color: rgba(0,0,0,0.15); 
+    box-shadow: inset 0 0 100px rgba(255,0,0,0.6); 
   }
   100% {
-    background-color: rgba(255, 0, 0, 0.1);
-    box-shadow: inset 0 0 0 rgba(255, 0, 0, 0);
-    filter: brightness(1);
+    background-color: rgba(0,0,0,0); 
+    box-shadow: inset 0 0 100px rgba(255,0,0,0.6); 
   }
 }
-
 /* ---------------------------------------------------
    CONFETTI
 --------------------------------------------------- */
@@ -268,4 +279,19 @@ body {
   #wordDisplay { font-size: 1.3rem; letter-spacing: 0.8em; }
   .input-buttons-container { flex-direction: column; width: 100%; }
   #letterInput { width: 100%; }
+}
+#statsContainer {
+    position: fixed; /* stays in one place on screen */
+    top: 10px;       /* distance from top */
+    left: 10px;      /* distance from left */
+    z-index: 1000;   /* make sure it’s above other content */
+    background-color: rgba(34, 39, 79, 0.8); /* optional: semi-transparent background */
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    font-family: 'Roboto Mono', monospace; /* match your page font */
+}
+#statsContainer p {
+    margin: 0.2rem 0; /* tighten spacing */
+    font-weight: 600;
 }

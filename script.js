@@ -36,6 +36,10 @@ let remainingGuesses = 0;
 let wrongGuesses = 0;
 let gameOver = false;
 let currentLevel = "";
+let userStreak = 0
+let highestStreak = 0
+let wins = 0
+let lastGameWon = false
 
 // PAGE LOAD
 document.addEventListener("DOMContentLoaded", function () {
@@ -56,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // START GAME
 function startGame(level) {
     let randomIndex;
+    document.getElementsByClassName('danger-mode')[0].classList.remove('danger-mode-active');
 
     if (!level) {
         level = currentLevel;
@@ -110,9 +115,9 @@ function updateDisplay() {
         }
     }
 
-    document.getElementById("wordDisplay").textContent = display;
+    document.getElementById("wordDisplay").textContent = display
     document.getElementById("guessedLetters").textContent =
-        "Guessed: " + guessedLetters.join(", ");
+        "Guessed: " + guessedLetters.join(", ")
 }
 
 // GUESS LETTER
@@ -122,45 +127,47 @@ function guessLetter() {
     }
 
     const inputBox = document.getElementById("letterInput");
-    const warning = document.getElementById("warning");
-    const letter = inputBox.value.trim().toUpperCase();
+    const warning = document.getElementById("warning")
+    const letter = inputBox.value.trim().toUpperCase()
 
     if (letter === "") {
         return;
     }
 
     if (!/^[A-Z]$/.test(letter)) {
-        warning.textContent = "Please guess a letter";
-        warning.style.display = "block";
-        inputBox.value = "";
-        return;
+        warning.textContent = "Please guess a letter"
+        warning.style.display = "block"
+        inputBox.value = ""
+        return
     }
 
     if (guessedLetters.includes(letter)) {
-        warning.textContent = "You already guessed that letter";
-        warning.style.display = "block";
-        return;
+        warning.textContent = "You already guessed that letter"
+        warning.style.display = "block"
+        return
     }
 
     guessedLetters.push(letter);
     warning.style.display = "none";
 
     if (!secretWord.includes(letter)) {
-        remainingGuesses--;
-        document.getElementById("remaining-count").textContent = remainingGuesses;
+        remainingGuesses--
+        document.getElementById("remaining-count").textContent = remainingGuesses
 
         // got from google
-        const hangman = document.getElementById("hangman");
+        const hangman = document.getElementById("hangman")
         if (hangman) {
-            hangman.classList.add("shake");
+            hangman.classList.add("shake")
             setTimeout(function () {
-                hangman.classList.remove("shake");
-            }, 500);
-        }
-        if (remainingGuesses === 1) {
-            document.body.classList.add("danger-mode");
+                hangman.classList.remove("shake")
+            }, 500)
         }
     }
+    if (remainingGuesses === 1) {
+    document.getElementsByClassName('danger-mode')[0].classList.add('danger-mode-active');
+} else {
+    document.getElementsByClassName('danger-mode')[0].classList.remove('danger-mode-active');
+}
 
     inputBox.value = "";
 
@@ -222,6 +229,7 @@ function checkWin() {
         gameMsg.classList.remove("game-over");
 
         launchConfettiSequence(); // AI-assisted
+        userWins(); 
     }
 }
 
@@ -263,4 +271,26 @@ function launchConfettiSequence() {
     setTimeout(function () {
         container.style.opacity = "0";
     }, 6000);
+}
+
+function userWins() {
+    
+        wins++;
+
+        if (lastGameWon) {
+            userStreak++;
+        } else {
+            userStreak = 1;
+        }
+        if (userStreak > highestStreak) {
+    highestStreak = userStreak;
+     document.getElementById("highestStreak").innerHTML = "Highest Streak: " + userStreak;
+}
+else {
+    userStreak = 1; // reset streak if not consecutive
+}
+
+        lastGameWon = true; // mark this game as won
+        document.getElementById("streakDisplay").innerHTML = "Streak: " + userStreak;
+    
 }
