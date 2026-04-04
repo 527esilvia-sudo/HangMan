@@ -232,6 +232,12 @@ function updateImage(){
     const img = document.getElementById("stagesImg");
     if(!img) return;
 
+    // Only overwrite if the game is NOT won
+    if(gameOver && secretWord.split('').every(l => guessedLetters.includes(l))){
+        img.src = "Untitled-10.png"; // win image
+        return; // exit early, don't overwrite
+    }
+
     let image = "";
     if(remainingGuesses === 8) image = "Untitled-1.png";
     if(remainingGuesses === 7) image = "Untitled-2.png";
