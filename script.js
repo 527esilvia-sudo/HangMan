@@ -15,7 +15,7 @@ let remainingGuesses = 8;
 let gameOver = false;
 let currentLevel = '';
 let userStreak = 0;
-let highestStreak = Number(localStorage.getItem('highestStreak')) || 0;
+let highestStreak = 0; // now only lasts per session
 
 // --------------------------
 // PAGE LOAD
@@ -48,7 +48,6 @@ function startGame(level){
     const dangerOverlay = document.querySelector('.danger-mode');
     if(dangerOverlay) dangerOverlay.classList.remove('danger-mode-active');
 
-    // Pick word
     let wordBank = easyWordBank;
     if(currentLevel === 'medium') wordBank = mediumWordBank;
     else if(currentLevel === 'hard') wordBank = hardWordBank;
@@ -58,6 +57,7 @@ function startGame(level){
 
     updateDisplay();
     updateRemainingDisplay();
+    updateGuessedLettersDisplay();
     resetGameOverMessage();
     updateImage();
 }
@@ -86,6 +86,8 @@ function guessLetter(){
     }
 
     guessedLetters.push(letter);
+    updateGuessedLettersDisplay();
+
     if(warning) warning.style.display="none";
 
     if(!secretWord.includes(letter)){
@@ -115,6 +117,13 @@ function updateDisplay(){
     }
 
     wordEl.textContent = display;
+}
+
+function updateGuessedLettersDisplay(){
+    const guessedEl = document.getElementById('guessedLetters');
+    if(!guessedEl) return;
+
+    guessedEl.textContent = "Guessed: " + guessedLetters.join(' ');
 }
 
 function updateRemainingDisplay(){
@@ -152,7 +161,6 @@ function resetGameOverMessage(){
 function checkWin(){
     if(secretWord.split('').every(char => guessedLetters.includes(char))){
         gameOver = true;
-        displayGameOverMessage("You Win! 🎉💥");
         updateImage('win');
         launchConfetti();
         handleStreak(true);
@@ -176,22 +184,25 @@ function displayGameOverMessage(text){
     }
 }
 
-// Reveal unguessed letters in red when lost
+// show unguessed letters in red
 function revealWordInRed(){
     const wordEl = document.getElementById('wordDisplay');
     if(!wordEl) return;
 
     let display = '';
     for(let char of secretWord){
-        if(guessedLetters.includes(char)) display += char + ' ';
-        else display += char + ' '; // can style with CSS if needed
+        if(guessedLetters.includes(char)){
+            display += char + ' ';
+        } else {
+            display += `<span style="color:red">${char}</span> `;
+        }
     }
 
-    wordEl.textContent = display;
+    wordEl.innerHTML = display;
 }
 
 // --------------------------
-// STREAK HANDLING
+// STREAK (SESSION ONLY NOW)
 // --------------------------
 function handleStreak(win){
     if(win) userStreak++;
@@ -199,7 +210,6 @@ function handleStreak(win){
 
     if(userStreak > highestStreak){
         highestStreak = userStreak;
-        localStorage.setItem('highestStreak', highestStreak);
     }
 
     updateStreakDisplay();
@@ -208,6 +218,7 @@ function handleStreak(win){
 function updateStreakDisplay(){
     const streakEl = document.getElementById('streakDisplay');
     const highEl = document.getElementById('highestStreak');
+
     if(streakEl) streakEl.textContent = "Current Streak: " + userStreak;
     if(highEl) highEl.textContent = "Highest Streak: " + highestStreak;
 }
@@ -238,16 +249,20 @@ function launchConfetti(){
 
     container.innerHTML = '';
     const colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#577590','#43aa8b','#4d908e','#f9844a','#f8961e','#f7b267'];
+
     for(let i=0;i<450;i++){
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
+
         const size = Math.floor(Math.random()*10)+6;
         confetti.style.width = confetti.style.height = size + 'px';
         confetti.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
         confetti.style.left = Math.random()*window.innerWidth + 'px';
         confetti.style.top = Math.random()*window.innerHeight + 'px';
+
         container.appendChild(confetti);
     }
+
     container.style.opacity = 1;
     setTimeout(()=>container.style.opacity=0, 6000);
 }
