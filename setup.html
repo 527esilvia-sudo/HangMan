@@ -8,7 +8,9 @@
   <!-- Google Fonts: Roboto Mono and IBM Plex Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
   <!-- Typekit CSS for shlop font -->
   <link rel="stylesheet" href="https://use.typekit.net/zhc0xvy.css">
   <!-- Bootstrap CSS -->
@@ -22,30 +24,33 @@
   <!-- Confetti container OUTSIDE layout -->
   <div id="confetti-container"></div>
 
-<div class="instructions-slideout">
+  <div class="instructions-slideout">
     <div class="instructions-tab">Instructions</div>
 
     <div class="instructions-content">
-        <h3>How to Play</h3>
-        <ul>
-            <li>Guess one letter at a time.</li>
-            <li>You have limited attempts.</li>
-            <li>Don’t let the weight drop!</li>
-        </ul>
+      <h3>How to Play</h3>
+      <ul>
+        <li>Guess one letter at a time.</li>
+        <li>You have limited attempts.</li>
+        <li>Don’t let the weight drop.</li>
+        <li>Use the back button to change difficulty or category.</li>
+        <li>Changing modes resets your streak.</li>
+
+      </ul>
     </div>
-</div>
+  </div>
 
 
 
   <!-- MAIN GAME CONTENT -->
   <main>
 
-   <div id="statsContainer">
-  <p id="winsDisplay">Wins: 0</p>
-<p id="streakDisplay">Streak: 0</p>
-<p id="highestStreak">Highest Streak: 0</p>
+    <div id="statsContainer">
+      <p id="winsDisplay">Wins: 0</p>
+      <p id="streakDisplay">Streak: 0</p>
+      <p id="highestStreak">Highest Streak: 0</p>
 
-</div>
+    </div>
 
     <div id="hangman" class="hangman-stage" style="margin: 2rem auto;">
       <div id="stages">
@@ -71,7 +76,7 @@
 
   </main>
 
-<button class="back-button" onclick="goBack()">← Back</button>
+  <button class="back-button" onclick="goBack()">← Back</button>
 
 
 
