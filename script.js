@@ -28,6 +28,167 @@ let randomWordBank = [
     'architecture','lamp','silver','constellation','pocket',
     'gravity','island','festival','diamond','book'
 ];
+/* 🎬 ENTERTAINMENT ---------------------------------- */
+
+let moviesBank = [
+  "inception","avatar","titanic","rocky","jaws",
+  "gladiator","frozen","coco","dune","moana",
+  "up","shrek","aladdin","memento","brave",
+  "zootopia","cars","ratatouille","halloween","twilight"
+];
+
+let tvBank = [
+  "friends","sherlock","glee","suits","lost",
+  "arrow","psych","bones","frasier","dexter",
+  "scrubs","office","community","supergirl","gotham",
+  "vikings","lucifer","manifest","reacher","columbo"
+];
+
+let celebritiesBank = [
+  "beyonce","rihanna","adele","zendaya","drake",
+  "swift","hanks","pitt","reeves","monroe",
+  "elvis","madonna","usher","shakira","rihanna",
+  "rihanna","weeknd","rihanna","rihanna","rihanna"
+]; // (If you want, I can replace repeats with more names)
+
+let gamesBank = [
+  "minecraft","fortnite","zelda","pokemon","halo",
+  "overwatch","roblox","skyrim","portal","doom",
+  "terraria","valorant","league","diablo","fallout",
+  "bioshock","metroid","kirby","sonic","tetris"
+];
+
+let musicBank = [
+  "beyonce","rihanna","drake","adele","weeknd",
+  "bruno","sza","usher","pink","shakira",
+  "doja","olivia","ariana","bts","coldplay",
+  "nirvana","queen","journey","rihanna","rihanna"
+]; // (Again, can replace repeats if you want)
+
+
+/* 🌍 REAL WORLD ------------------------------------- */
+
+let countriesBank = [
+  "canada","brazil","france","germany","japan",
+  "mexico","italy","india","spain","egypt",
+  "china","sweden","norway","chile","argentina",
+  "peru","greece","turkey","ireland","poland"
+];
+
+let citiesBank = [
+  "paris","tokyo","london","sydney","dubai",
+  "rome","berlin","toronto","miami","seattle",
+  "vienna","oslo","madrid","lisbon","athens",
+  "cairo","jakarta","seoul","boston","dallas"
+];
+
+let landmarksBank = [
+  "colosseum","pyramids","eiffel","bigben","acropolis",
+  "stonehenge","machupicchu","tajmahal","liberty","sphinx",
+  "petra","angkor","chichenitza","mountfuji","everest",
+  "niagara","grandcanyon","uluru","christredeemer","leaningtower"
+];
+
+let jobsBank = [
+  "teacher","doctor","lawyer","chef","artist",
+  "engineer","nurse","pilot","writer","farmer",
+  "dentist","barber","cashier","plumber","electrician",
+  "mechanic","scientist","librarian","firefighter","carpenter"
+];
+
+
+/* 🧠 BRAINY CATEGORIES ------------------------------- */
+
+let scienceBank = [
+  "gravity","atom","molecule","energy","photosynthesis",
+  "evolution","voltage","friction","ecosystem","protein",
+  "neutron","electron","galaxy","oxygen","carbon",
+  "biology","chemistry","physics","geology","cellular"
+];
+
+let legalBank = [
+  "evidence","verdict","jury","contract","appeal",
+  "statute","witness","hearing","justice","rights",
+  "lawyer","defense","prosecution","settlement","injunction",
+  "liability","notary","petition","precedent","testimony"
+];
+
+let medicalBank = [
+  "vaccine","therapy","diagnosis","symptom","fracture",
+  "immune","allergy","infection","surgery","nervous",
+  "circulation","respiration","antibiotic","hormone","muscle",
+  "tendon","cartilage","virus","bacteria","treatment"
+];
+
+let technologyBank = [
+  "software","hardware","network","database","algorithm",
+  "browser","server","robotics","sensor","encryption",
+  "processor","monitor","keyboard","wireless","bluetooth",
+  "firewall","storage","compiler","interface","protocol"
+];
+
+
+/* 🍔 EVERYDAY STUFF ---------------------------------- */
+
+let foodBank = [
+  "pizza","burger","pasta","sushi","taco",
+  "salad","cookie","cereal","smoothie","pancake",
+  "waffle","sandwich","noodles","steak","fries",
+  "popcorn","brownie","muffin","omelette","lasagna"
+];
+
+let clothingBank = [
+  "nike","adidas","puma","reebok","levi",
+  "gap","zara","uniqlo","crocs","vans",
+  "hollister","aeropostale","converse","northface","columbia",
+  "patagonia","champion","fila","skechers","timberland"
+];
+
+let schoolBank = [
+  "math","science","history","english","art",
+  "music","biology","chemistry","algebra","geography",
+  "physics","writing","reading","grammar","calculus",
+  "spanish","french","economics","health","geometry"
+];
+
+let sportsBank = [
+  "soccer","basketball","baseball","tennis","hockey",
+  "golf","boxing","swimming","volleyball","football",
+  "rugby","cricket","skating","skiing","surfing",
+  "bowling","cycling","wrestling","rowing","track"
+];
+
+
+/* 🎮 GAME-FRIENDLY ---------------------------------- */
+
+let longwordsBank = [
+  "imagination","celebration","information","generation","adventure",
+  "motivation","population","foundation","technology","chocolate",
+  "friendship","leadership","creativity","incredible","remarkable",
+  "understand","appreciate","confidence","experience","challenge"
+];
+
+let shortwordsBank = [
+  "cat","dog","sun","map","cup",
+  "hat","pen","car","box","key",
+  "bed","egg","ice","jam","lip",
+  "owl","pie","toy","web","zip"
+];
+
+let difficultBank = [
+  "rhythm","oxygen","awkward","pneumonia","mnemonic",
+  "bouquet","chaos","genuine","jealous","subtle",
+  "whistle","yacht","numb","psychic","receipt",
+  "island","plaque","rogue","sword","debris"
+];
+
+let compoundBank = [
+  "sunflower","notebook","raincoat","football","snowman",
+  "toothbrush","backpack","cupcake","moonlight","starlight",
+  "firefly","lighthouse","playground","haircut","handshake",
+  "bookstore","airport","earthquake","bedroom","rainbow"
+];
+
 
 // --------------------------
 // GAME VARIABLES
@@ -43,10 +204,12 @@ let currentLevel = "";
 // PAGE LOAD
 // --------------------------
 document.addEventListener("DOMContentLoaded", function () {
-    const params = new URLSearchParams(window.location.search);
-    const mode = params.get("mode");
+   const params = new URLSearchParams(window.location.search);
+const mode = params.get("mode");
+const category = params.get("category");
 
-    startGame(mode);
+startGame(mode, category);
+
 
     const letterInput = document.getElementById("letterInput");
     if(letterInput){
@@ -79,20 +242,95 @@ function startGame(level) {
     }
 
     // Pick random word
-    let randomIndex;
-    if (level === "easy") {
-        randomIndex = Math.floor(Math.random() * easyWordBank.length);
-        secretWord = easyWordBank[randomIndex].toUpperCase();
-    } else if (level === "medium") {
-        randomIndex = Math.floor(Math.random() * medWordBank.length);
-        secretWord = medWordBank[randomIndex].toUpperCase();
-    } else if (level === "hard") {
-        randomIndex = Math.floor(Math.random() * hardWordBank.length);
-        secretWord = hardWordBank[randomIndex].toUpperCase();
-    } else if (level === "random") {
-        randomIndex = Math.floor(Math.random() * randomWordBank.length);
-        secretWord = randomWordBank[randomIndex].toUpperCase();
-    }
+let randomIndex;
+
+// DIFFICULTY MODES
+if (level === "easy") {
+    randomIndex = Math.floor(Math.random() * easyWordBank.length);
+    secretWord = easyWordBank[randomIndex].toUpperCase();
+}
+else if (level === "medium") {
+    randomIndex = Math.floor(Math.random() * medWordBank.length);
+    secretWord = medWordBank[randomIndex].toUpperCase();
+}
+else if (level === "hard") {
+    randomIndex = Math.floor(Math.random() * hardWordBank.length);
+    secretWord = hardWordBank[randomIndex].toUpperCase();
+}
+else if (level === "random") {
+    randomIndex = Math.floor(Math.random() * randomWordBank.length);
+    secretWord = randomWordBank[randomIndex].toUpperCase();
+}
+
+// CATEGORY MODES
+else if (category === "movies") {
+    secretWord = moviesBank[Math.floor(Math.random() * moviesBank.length)].toUpperCase();
+}
+else if (category === "tv") {
+    secretWord = tvBank[Math.floor(Math.random() * tvBank.length)].toUpperCase();
+}
+else if (category === "celebrities") {
+    secretWord = celebritiesBank[Math.floor(Math.random() * celebritiesBank.length)].toUpperCase();
+}
+else if (category === "games") {
+    secretWord = gamesBank[Math.floor(Math.random() * gamesBank.length)].toUpperCase();
+}
+else if (category === "music") {
+    secretWord = musicBank[Math.floor(Math.random() * musicBank.length)].toUpperCase();
+}
+
+else if (category === "countries") {
+    secretWord = countriesBank[Math.floor(Math.random() * countriesBank.length)].toUpperCase();
+}
+else if (category === "cities") {
+    secretWord = citiesBank[Math.floor(Math.random() * citiesBank.length)].toUpperCase();
+}
+else if (category === "landmarks") {
+    secretWord = landmarksBank[Math.floor(Math.random() * landmarksBank.length)].toUpperCase();
+}
+else if (category === "jobs") {
+    secretWord = jobsBank[Math.floor(Math.random() * jobsBank.length)].toUpperCase();
+}
+
+else if (category === "science") {
+    secretWord = scienceBank[Math.floor(Math.random() * scienceBank.length)].toUpperCase();
+}
+else if (category === "legal") {
+    secretWord = legalBank[Math.floor(Math.random() * legalBank.length)].toUpperCase();
+}
+else if (category === "medical") {
+    secretWord = medicalBank[Math.floor(Math.random() * medicalBank.length)].toUpperCase();
+}
+else if (category === "technology") {
+    secretWord = technologyBank[Math.floor(Math.random() * technologyBank.length)].toUpperCase();
+}
+
+else if (category === "food") {
+    secretWord = foodBank[Math.floor(Math.random() * foodBank.length)].toUpperCase();
+}
+else if (category === "clothing") {
+    secretWord = clothingBank[Math.floor(Math.random() * clothingBank.length)].toUpperCase();
+}
+else if (category === "school") {
+    secretWord = schoolBank[Math.floor(Math.random() * schoolBank.length)].toUpperCase();
+}
+else if (category === "sports") {
+    secretWord = sportsBank[Math.floor(Math.random() * sportsBank.length)].toUpperCase();
+}
+
+else if (category === "longwords") {
+    secretWord = longwordsBank[Math.floor(Math.random() * longwordsBank.length)].toUpperCase();
+}
+else if (category === "shortwords") {
+    secretWord = shortwordsBank[Math.floor(Math.random() * shortwordsBank.length)].toUpperCase();
+}
+else if (category === "difficult") {
+    secretWord = difficultBank[Math.floor(Math.random() * difficultBank.length)].toUpperCase();
+}
+else if (category === "compound") {
+    secretWord = compoundBank[Math.floor(Math.random() * compoundBank.length)].toUpperCase();
+}
+
 
     updateDisplay();
     updateGuessedLetters();
@@ -273,3 +511,16 @@ function launchConfetti(){
     container.style.opacity = "1";
     setTimeout(()=> container.style.opacity="0",6000);
 }
+function goBack() {
+    window.location.href = "index.html";
+}
+
+const instructionsTab = document.querySelector('.instructions-tab');
+const instructionsSlideout = document.querySelector('.instructions-slideout');
+
+instructionsTab.addEventListener('click', () => {
+    instructionsSlideout.classList.toggle('active');
+});
+
+
+

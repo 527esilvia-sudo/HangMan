@@ -22,42 +22,63 @@
   <!-- Confetti container OUTSIDE layout -->
   <div id="confetti-container"></div>
 
-  <main>
-    
-    <div>
-       
-<div id="statsContainer">
-    <p id="totalWins">Wins: </p>
-    <p id="streakDisplay">Current Streak: </p>
-    <p id="highestStreak">Highest Streak: </p>
-</div>
-      <div id="hangman" class="hangman-stage" style="margin: 2rem auto;">
-        <div id="stages">
-          <img id="stagesImg" src="Untitled-1.png">
-        </div>
-      </div>
+<div class="instructions-slideout">
+    <div class="instructions-tab">Instructions</div>
 
-      <div style="margin-top: 1rem; text-align: center;">
-        <p class="mb-2">Attempts Left: <span id="remaining-count">8</span></p>
-        <p id="guessedLetters" class="mb-3">Guessed: </p>
-
-        <div id="wordDisplay" class="fs-3 mb-3">_ _ _ _ _</div>
-        <div id="gameOverMessage" class="mb-3"></div>
-
-        <div class="input-buttons-container">
-          <input type="text" class="form-control" id="letterInput" placeholder="Guess a letter" maxlength="1">
-          <button class="btn-primary" onclick="guessLetter()">GUESS</button>
-          <button class="btn-secondary" onclick="startGame()">Restart</button>
-        </div>
-
-        <h3 id="warning" class="warning mt-2">Please guess a letter</h3>
-      </div>
-
+    <div class="instructions-content">
+        <h3>How to Play</h3>
+        <ul>
+            <li>Guess one letter at a time.</li>
+            <li>You have limited attempts.</li>
+            <li>Don’t let the weight drop!</li>
+        </ul>
     </div>
+</div>
+
+
+
+  <!-- MAIN GAME CONTENT -->
+  <main>
+
+    <div id="statsContainer">
+      <p id="totalWins">Wins: </p>
+      <p id="streakDisplay">Current Streak: </p>
+      <p id="highestStreak">Highest Streak: </p>
+    </div>
+
+    <div id="hangman" class="hangman-stage" style="margin: 2rem auto;">
+      <div id="stages">
+        <img id="stagesImg" src="Untitled-1.png">
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem; text-align: center;">
+      <p class="mb-2">Attempts Left: <span id="remaining-count">8</span></p>
+      <p id="guessedLetters" class="mb-3">Guessed: </p>
+
+      <div id="wordDisplay" class="fs-3 mb-3">_ _ _ _ _</div>
+      <div id="gameOverMessage" class="mb-3"></div>
+
+      <div class="input-buttons-container">
+        <input type="text" class="form-control" id="letterInput" placeholder="Guess a letter" maxlength="1">
+        <button class="btn-primary" onclick="guessLetter()">GUESS</button>
+        <button class="btn-secondary" onclick="startGame()">Restart</button>
+      </div>
+
+      <h3 id="warning" class="warning mt-2">Please guess a letter</h3>
+    </div>
+
   </main>
-<div class="danger-mode"></div>
+
+  <button class="btn-secondary" onclick="goBack()">Back</button>
+
+  <div class="danger-mode"></div>
+
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 
 
 </html>
