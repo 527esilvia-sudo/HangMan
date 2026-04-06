@@ -246,7 +246,6 @@ function startGame(level, category) {
     wrongGuesses = 0;
     remainingGuesses = 8;
     gameOver = false;
-    lastGameWon = false; // <-- FIX
 
 
     // reset UI
@@ -605,6 +604,8 @@ instructionsTab.addEventListener('click', () => {
 // streak and win tracker
 function userWins() {
     wins++;
+    document.getElementById("winsDisplay").textContent = "Wins: " + wins;
+
 
     // streak logic
     if (lastGameWon) {
