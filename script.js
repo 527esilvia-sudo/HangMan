@@ -3,188 +3,188 @@
 // --------------------------
 
 let easyWordBank = [
-    'cat','dog','sun','hat','map',
-    'cup','pen','bed','box','car',
-    'tree','fish','bird','ball','book',
-    'shoe','milk','door','hand','star'
+    'cat', 'dog', 'sun', 'hat', 'map',
+    'cup', 'pen', 'bed', 'box', 'car',
+    'tree', 'fish', 'bird', 'ball', 'book',
+    'shoe', 'milk', 'door', 'hand', 'star'
 ];
 
 let medWordBank = [
-    'garden','window','button','picture','family',
-    'school','forest','mountain','pencil','animal',
-    'friend','river','letter','orange','market',
-    'travel','bridge','summer','circle','puzzle'
+    'garden', 'window', 'button', 'picture', 'family',
+    'school', 'forest', 'mountain', 'pencil', 'animal',
+    'friend', 'river', 'letter', 'orange', 'market',
+    'travel', 'bridge', 'summer', 'circle', 'puzzle'
 ];
 
 let hardWordBank = [
-    'elephant','chocolate','umbrella','adventure','pineapple',
-    'computer','dinosaur','astronomy','blueberry','happiness',
-    'backpack','telephone','triangle','engineer','notebook',
-    'campfire','volcano','headphones','skyscraper','photograph'
+    'elephant', 'chocolate', 'umbrella', 'adventure', 'pineapple',
+    'computer', 'dinosaur', 'astronomy', 'blueberry', 'happiness',
+    'backpack', 'telephone', 'triangle', 'engineer', 'notebook',
+    'campfire', 'volcano', 'headphones', 'skyscraper', 'photograph'
 ];
 
 let randomWordBank = [
-    'telescope','coin','basket','electricity','rain',
-    'gallery','sock','rocket','microscope','leaf',
-    'architecture','lamp','silver','constellation','pocket',
-    'gravity','island','festival','diamond','book'
+    'telescope', 'coin', 'basket', 'electricity', 'rain',
+    'gallery', 'sock', 'rocket', 'microscope', 'leaf',
+    'architecture', 'lamp', 'silver', 'constellation', 'pocket',
+    'gravity', 'island', 'festival', 'diamond', 'book'
 ];
 
 /* 🎬 ENTERTAINMENT ---------------------------------- */
 
 let moviesBank = [
-  "inception","avatar","titanic","rocky","jaws",
-  "gladiator","frozen","coco","dune","moana",
-  "up","shrek","aladdin","memento","brave",
-  "zootopia","cars","ratatouille","halloween","twilight"
+    "inception", "avatar", "titanic", "rocky", "jaws",
+    "gladiator", "frozen", "coco", "dune", "moana",
+    "up", "shrek", "aladdin", "memento", "brave",
+    "zootopia", "cars", "ratatouille", "halloween", "twilight"
 ];
 
 let tvBank = [
-  "friends","sherlock","glee","suits","lost",
-  "arrow","psych","bones","frasier","dexter",
-  "scrubs","office","community","supergirl","gotham",
-  "vikings","lucifer","manifest","reacher","columbo"
+    "friends", "sherlock", "glee", "suits", "lost",
+    "arrow", "psych", "bones", "frasier", "dexter",
+    "scrubs", "office", "community", "supergirl", "gotham",
+    "vikings", "lucifer", "manifest", "reacher", "columbo"
 ];
 
 let charactersBank = [
-  "mario","elsa","batman","spiderman","harry","hermione",
-  "yoda","shrek","gandalf","pikachu",
-  "katniss","thor","loki","woody","buzz",
-  "scooby","velma","moana","tiana","stitch"
+    "mario", "elsa", "batman", "spiderman", "harry", "hermione",
+    "yoda", "shrek", "gandalf", "pikachu",
+    "katniss", "thor", "loki", "woody", "buzz",
+    "scooby", "velma", "moana", "tiana", "stitch"
 ];
 
 let gamesBank = [
-  "minecraft","fortnite","zelda","pokemon","halo",
-  "overwatch","roblox","skyrim","portal","doom",
-  "terraria","valorant","league","diablo","fallout",
-  "bioshock","metroid","kirby","sonic","tetris"
+    "minecraft", "fortnite", "zelda", "pokemon", "halo",
+    "overwatch", "roblox", "skyrim", "portal", "doom",
+    "terraria", "valorant", "league", "diablo", "fallout",
+    "bioshock", "metroid", "kirby", "sonic", "tetris"
 ];
 
 let musicBank = [
-  "beyonce","rihanna","drake","adele","weeknd",
-  "bruno","sza","usher","pink","shakira",
-  "doja","olivia","ariana","bts","coldplay",
-  "nirvana","queen","journey","rihanna","rihanna"
+    "beyonce", "rihanna", "drake", "adele", "weeknd",
+    "bruno", "sza", "usher", "pink", "shakira",
+    "doja", "olivia", "ariana", "bts", "coldplay",
+    "nirvana", "queen", "journey", "rihanna", "rihanna"
 ];
 
 /* 🌍 REAL WORLD ------------------------------------- */
 
 let countriesBank = [
-  "canada","brazil","france","germany","japan",
-  "mexico","italy","india","spain","egypt",
-  "china","sweden","norway","chile","argentina",
-  "peru","greece","turkey","ireland","poland"
+    "canada", "brazil", "france", "germany", "japan",
+    "mexico", "italy", "india", "spain", "egypt",
+    "china", "sweden", "norway", "chile", "argentina",
+    "peru", "greece", "turkey", "ireland", "poland"
 ];
 
 let citiesBank = [
-  "paris","tokyo","london","sydney","dubai",
-  "rome","berlin","toronto","miami","seattle",
-  "vienna","oslo","madrid","lisbon","athens",
-  "cairo","jakarta","seoul","boston","dallas"
+    "paris", "tokyo", "london", "sydney", "dubai",
+    "rome", "berlin", "toronto", "miami", "seattle",
+    "vienna", "oslo", "madrid", "lisbon", "athens",
+    "cairo", "jakarta", "seoul", "boston", "dallas"
 ];
 
 let landmarksBank = [
-  "colosseum","pyramids","eiffel","bigben","acropolis",
-  "stonehenge","machupicchu","tajmahal","liberty","sphinx",
-  "petra","angkor","chichenitza","mountfuji","everest",
-  "niagara","grandcanyon","uluru","christredeemer","leaningtower"
+    "colosseum", "pyramids", "eiffel", "bigben", "acropolis",
+    "stonehenge", "machupicchu", "tajmahal", "liberty", "sphinx",
+    "petra", "angkor", "chichenitza", "mountfuji", "everest",
+    "niagara", "grandcanyon", "uluru", "christredeemer", "leaningtower"
 ];
 
 let jobsBank = [
-  "teacher","doctor","lawyer","chef","artist",
-  "engineer","nurse","pilot","writer","farmer",
-  "dentist","barber","cashier","plumber","electrician",
-  "mechanic","scientist","librarian","firefighter","carpenter"
+    "teacher", "doctor", "lawyer", "chef", "artist",
+    "engineer", "nurse", "pilot", "writer", "farmer",
+    "dentist", "barber", "cashier", "plumber", "electrician",
+    "mechanic", "scientist", "librarian", "firefighter", "carpenter"
 ];
 
 /* 🧠 BRAINY CATEGORIES ------------------------------- */
 
 let scienceBank = [
-  "gravity","atom","molecule","energy","photosynthesis",
-  "evolution","voltage","friction","ecosystem","protein",
-  "neutron","electron","galaxy","oxygen","carbon",
-  "biology","chemistry","physics","geology","cellular"
+    "gravity", "atom", "molecule", "energy", "photosynthesis",
+    "evolution", "voltage", "friction", "ecosystem", "protein",
+    "neutron", "electron", "galaxy", "oxygen", "carbon",
+    "biology", "chemistry", "physics", "geology", "cellular"
 ];
 
 let legalBank = [
-  "evidence","verdict","jury","contract","appeal",
-  "statute","witness","hearing","justice","rights",
-  "lawyer","defense","prosecution","settlement","injunction",
-  "liability","notary","petition","precedent","testimony"
+    "evidence", "verdict", "jury", "contract", "appeal",
+    "statute", "witness", "hearing", "justice", "rights",
+    "lawyer", "defense", "prosecution", "settlement", "injunction",
+    "liability", "notary", "petition", "precedent", "testimony"
 ];
 
 let medicalBank = [
-  "vaccine","therapy","diagnosis","symptom","fracture",
-  "immune","allergy","infection","surgery","nervous",
-  "circulation","respiration","antibiotic","hormone","muscle",
-  "tendon","cartilage","virus","bacteria","treatment"
+    "vaccine", "therapy", "diagnosis", "symptom", "fracture",
+    "immune", "allergy", "infection", "surgery", "nervous",
+    "circulation", "respiration", "antibiotic", "hormone", "muscle",
+    "tendon", "cartilage", "virus", "bacteria", "treatment"
 ];
 
 let technologyBank = [
-  "software","hardware","network","database","algorithm",
-  "browser","server","robotics","sensor","encryption",
-  "processor","monitor","keyboard","wireless","bluetooth",
-  "firewall","storage","compiler","interface","protocol"
+    "software", "hardware", "network", "database", "algorithm",
+    "browser", "server", "robotics", "sensor", "encryption",
+    "processor", "monitor", "keyboard", "wireless", "bluetooth",
+    "firewall", "storage", "compiler", "interface", "protocol"
 ];
 
 /* 🍔 EVERYDAY STUFF ---------------------------------- */
 
 let foodBank = [
-  "pizza","burger","pasta","sushi","taco",
-  "salad","cookie","cereal","smoothie","pancake",
-  "waffle","sandwich","noodles","steak","fries",
-  "popcorn","brownie","muffin","omelette","lasagna"
+    "pizza", "burger", "pasta", "sushi", "taco",
+    "salad", "cookie", "cereal", "smoothie", "pancake",
+    "waffle", "sandwich", "noodles", "steak", "fries",
+    "popcorn", "brownie", "muffin", "omelette", "lasagna"
 ];
 
 let clothingBank = [
-  "nike","adidas","puma","reebok","levi",
-  "gap","zara","uniqlo","crocs","vans",
-  "hollister","aeropostale","converse","northface","columbia",
-  "patagonia","champion","fila","skechers","timberland"
+    "nike", "adidas", "puma", "reebok", "levi",
+    "gap", "zara", "uniqlo", "crocs", "vans",
+    "hollister", "aeropostale", "converse", "northface", "columbia",
+    "patagonia", "champion", "fila", "skechers", "timberland"
 ];
 
 let schoolBank = [
-  "math","science","history","english","art",
-  "music","biology","chemistry","algebra","geography",
-  "physics","writing","reading","grammar","calculus",
-  "spanish","french","economics","health","geometry"
+    "math", "science", "history", "english", "art",
+    "music", "biology", "chemistry", "algebra", "geography",
+    "physics", "writing", "reading", "grammar", "calculus",
+    "spanish", "french", "economics", "health", "geometry"
 ];
 
 let sportsBank = [
-  "soccer","basketball","baseball","tennis","hockey",
-  "golf","boxing","swimming","volleyball","football",
-  "rugby","cricket","skating","skiing","surfing",
-  "bowling","cycling","wrestling","rowing","track"
+    "soccer", "basketball", "baseball", "tennis", "hockey",
+    "golf", "boxing", "swimming", "volleyball", "football",
+    "rugby", "cricket", "skating", "skiing", "surfing",
+    "bowling", "cycling", "wrestling", "rowing", "track"
 ];
 
 /* 🎮 GAME-FRIENDLY ---------------------------------- */
 
 let longwordsBank = [
-  "imagination","celebration","information","generation","adventure",
-  "motivation","population","foundation","technology","chocolate",
-  "friendship","leadership","creativity","incredible","remarkable",
-  "understand","appreciate","confidence","experience","challenge"
+    "imagination", "celebration", "information", "generation", "adventure",
+    "motivation", "population", "foundation", "technology", "chocolate",
+    "friendship", "leadership", "creativity", "incredible", "remarkable",
+    "understand", "appreciate", "confidence", "experience", "challenge"
 ];
 
 let shortwordsBank = [
-  "cat","dog","sun","map","cup",
-  "hat","pen","car","box","key",
-  "bed","egg","ice","jam","lip",
-  "owl","pie","toy","web","zip"
+    "cat", "dog", "sun", "map", "cup",
+    "hat", "pen", "car", "box", "key",
+    "bed", "egg", "ice", "jam", "lip",
+    "owl", "pie", "toy", "web", "zip"
 ];
 
 let difficultBank = [
-  "rhythm","oxygen","awkward","pneumonia","mnemonic",
-  "bouquet","chaos","genuine","jealous","subtle",
-  "whistle","yacht","numb","psychic","receipt",
-  "island","plaque","rogue","sword","debris"
+    "rhythm", "oxygen", "awkward", "pneumonia", "mnemonic",
+    "bouquet", "chaos", "genuine", "jealous", "subtle",
+    "whistle", "yacht", "numb", "psychic", "receipt",
+    "island", "plaque", "rogue", "sword", "debris"
 ];
 
 let compoundBank = [
-  "sunflower","notebook","raincoat","football","snowman",
-  "toothbrush","backpack","cupcake","moonlight","starlight",
-  "firefly","lighthouse","playground","haircut","handshake",
-  "bookstore","airport","earthquake","bedroom","rainbow"
+    "sunflower", "notebook", "raincoat", "football", "snowman",
+    "toothbrush", "backpack", "cupcake", "moonlight", "starlight",
+    "firefly", "lighthouse", "playground", "haircut", "handshake",
+    "bookstore", "airport", "earthquake", "bedroom", "rainbow"
 ];
 
 // --------------------------
@@ -200,6 +200,11 @@ let gameOver = false;
 
 let currentLevel = "";
 let currentCategory = "";
+let wins = 0;
+let userStreak = 0;
+let highestStreak = 0;
+let lastGameWon = false;
+
 
 // --------------------------
 // PAGE LOAD
@@ -241,6 +246,8 @@ function startGame(level, category) {
     wrongGuesses = 0;
     remainingGuesses = 8;
     gameOver = false;
+    lastGameWon = false; // <-- FIX
+
 
     // reset UI
     const remainingDisplay = document.getElementById("remaining-count");
@@ -504,6 +511,7 @@ function checkWin() {
 
         updateDangerMode();
         launchConfetti(); // ai-generated effect
+        userWins(); // update streak
     }
 }
 
@@ -511,16 +519,21 @@ function checkGameOver() {
     if (remainingGuesses <= 0) {
         gameOver = true;
 
-        const gameMsg = document.getElementById("gameOverMessage");
-        if (gameMsg) {
-            gameMsg.textContent = "Game Over!";
-            gameMsg.classList.add("game-over");
-        }
+        updateDisplay();
+        // reset streak here
+        lastGameWon = false;
+        userStreak = 0;
+        document.getElementById("streakDisplay").textContent = "Streak: 0";
 
-        updateDisplay(); // reveal missed letters
-        updateDangerMode();
+        const gameMsg = document.getElementById("gameOverMessage");
+        gameMsg.textContent = "Game Over!";
+        gameMsg.classList.add("game-over");
+
+
+
     }
 }
+
 // IMAGE + CONFETTI
 function updateImage() {
     const img = document.getElementById("stagesImg");
@@ -554,8 +567,8 @@ function launchConfetti() {
     container.innerHTML = "";
 
     const colors = [
-        '#f94144','#f3722c','#f9c74f','#90be6d','#577590',
-        '#43aa8b','#4d908e','#f9844a','#f8961e','#f7b267'
+        '#f94144', '#f3722c', '#f9c74f', '#90be6d', '#577590',
+        '#43aa8b', '#4d908e', '#f9844a', '#f8961e', '#f7b267'
     ];
 
     for (let i = 0; i < 450; i++) {
@@ -588,3 +601,28 @@ const instructionsSlideout = document.querySelector('.instructions-slideout');
 instructionsTab.addEventListener('click', () => {
     instructionsSlideout.classList.toggle('active');
 });
+
+// streak and win tracker
+function userWins() {
+    wins++;
+
+    // streak logic
+    if (lastGameWon) {
+        userStreak++;
+    } else {
+        userStreak = 1;
+    }
+
+    // update highest streak
+    if (userStreak > highestStreak) {
+        highestStreak = userStreak;
+        document.getElementById("highestStreak").textContent =
+            "Highest Streak: " + highestStreak;
+    }
+
+    lastGameWon = true;
+
+    // update UI
+    document.getElementById("streakDisplay").textContent =
+        "Streak: " + userStreak;
+}
