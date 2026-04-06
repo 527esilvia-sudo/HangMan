@@ -1,5 +1,5 @@
 /* ---------------------------------------------------
-   GLOBAL RESET & PAGE FIXES
+   GLOBAL RESET & BASE PAGE STYLING
 --------------------------------------------------- */
 html, body {
   margin: 0;
@@ -10,12 +10,7 @@ html, body {
   height: 100%;
   font-family: 'Roboto Mono', 'IBM Plex Mono', monospace;
   color: #e5e7eb;
-}
 
-/* Background */
-body {
-  min-height: 100vh;
-  padding-bottom: 0.8rem;
   background:
     repeating-linear-gradient(
       45deg,
@@ -35,7 +30,159 @@ main, .container, .container-fluid {
 }
 
 /* ---------------------------------------------------
-   HANGMAN STAGE
+   SETUP PAGE WRAPPER (centers only setup page)
+--------------------------------------------------- */
+.setup-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------------------------------------------------
+   CARD PANEL (Setup Page)
+--------------------------------------------------- */
+.card {
+  background: rgba(17, 24, 39, 0.92);
+  border: 2px solid #374151;
+  border-radius: 6px;
+  padding: 1.5rem;
+  width: 360px;
+
+  box-shadow: 0 0 18px rgba(251,191,36,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 28px rgba(251,191,36,0.25);
+}
+
+.card h2 {
+  font-weight: 700;
+  color: #FBBF24;
+  text-shadow: 0 0 8px rgba(251,191,36,0.4);
+}
+
+.card p {
+  margin-top: -0.3rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.card h1 {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #FBBF24;
+  margin: 1rem 0;
+  text-shadow: 0 0 10px rgba(251,191,36,0.4);
+}
+
+/* ---------------------------------------------------
+   BUTTON BASE STYLE
+--------------------------------------------------- */
+.card button {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  border: none;
+  text-transform: uppercase;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.5);
+  width: 100%;
+}
+
+/* ---------------------------------------------------
+   BLUE DIFFICULTY GRADIENT
+--------------------------------------------------- */
+.btn-easy {
+  background-color: #60a5fa !important;
+  color: #111827 !important;
+}
+.btn-easy:hover {
+  background-color: #3b82f6 !important;
+  transform: translateY(-2px);
+}
+
+.btn-medium {
+  background-color: #3b82f6 !important;
+  color: #111827 !important;
+}
+.btn-medium:hover {
+  background-color: #2563eb !important;
+  transform: translateY(-2px);
+}
+
+.btn-hard {
+  background-color: #1e3a8a !important;
+  color: #FBBF24 !important;
+}
+.btn-hard:hover {
+  background-color: #1e40af !important;
+  transform: translateY(-2px);
+}
+
+.btn-random {
+  background-color: #1e293b !important;
+  color: #FBBF24 !important;
+}
+.btn-random:hover {
+  background-color: #0f172a !important;
+  transform: translateY(-2px);
+}
+
+/* Category button (gold accent) */
+.btn-category {
+  background-color: #FBBF24 !important;
+  color: #111827 !important;
+}
+.btn-category:hover {
+  background-color: #F59E0B !important;
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------
+   BACK BUTTON — FIXED BOTTOM-LEFT, MATCHES RESET
+--------------------------------------------------- */
+.back-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+
+  background-color: #4b5563;   /* same as .btn-secondary */
+  color: #e5e7eb;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: 'Roboto Mono', monospace;
+
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  border: none;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  box-shadow: 0 4px 0 #1f2937;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #64748b;
+  transform: translateY(-2px);
+}
+
+.back-button:active {
+  transform: translateY(2px);
+}
+
+
+/* ---------------------------------------------------
+   HANGMAN GAME STYLES
 --------------------------------------------------- */
 .hangman-stage {
   position: relative;
@@ -64,7 +211,6 @@ main, .container, .container-fluid {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  display: block;
   transition: opacity 0.4s ease-in-out;
 }
 
@@ -109,7 +255,7 @@ main, .container, .container-fluid {
 }
 
 /* ---------------------------------------------------
-   INPUT + BUTTONS
+   INPUT + BUTTONS (GAME)
 --------------------------------------------------- */
 .input-buttons-container {
   display: flex;
@@ -134,24 +280,12 @@ main, .container, .container-fluid {
   box-shadow: 0 0 0 3px rgba(217,119,6,0.2);
 }
 
-/* Buttons */
-.btn-primary,
-.btn-secondary {
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.55rem 1.1rem;
-  border: none;
-  border-radius: 3px;
-  text-transform: uppercase;
-  transition: all 0.15s ease-in-out;
-}
-
+/* Primary + Secondary Buttons (Game) */
 .btn-primary {
   background-color: #F59E0B;
   color: #111827;
   box-shadow: 0 4px 0 #d97706;
 }
-
 .btn-primary:hover { background-color: #FBBF24; transform: translateY(-2px); }
 .btn-primary:active { transform: translateY(2px); }
 
@@ -160,11 +294,12 @@ main, .container, .container-fluid {
   color: #e5e7eb;
   box-shadow: 0 4px 0 #1f2937;
 }
-
 .btn-secondary:hover { background-color: #64748b; transform: translateY(-2px); }
 .btn-secondary:active { transform: translateY(2px); }
 
-/* GAME OVER — smooth fade-in, no instant flashing */
+/* ---------------------------------------------------
+   GAME OVER MESSAGE
+--------------------------------------------------- */
 #gameOverMessage.game-over {
   position: fixed;
   top: 40%;
@@ -181,17 +316,9 @@ main, .container, .container-fluid {
   animation-delay: 1s;
 }
 
-/* Fade-in animation */
 @keyframes gameOverFade {
   0% { opacity: 0; filter: blur(4px); }
   100% { opacity: 1; filter: blur(0px); }
-}
-
-
-@keyframes pulseGlow {
-  0%   { filter: drop-shadow(0 0 8px rgba(251,191,36,0.4)); }
-  50%  { filter: drop-shadow(0 0 22px rgba(251,191,36,1)); }
-  100% { filter: drop-shadow(0 0 8px rgba(251,191,36,0.4)); }
 }
 
 /* ---------------------------------------------------
@@ -203,9 +330,8 @@ main, .container, .container-fluid {
   pointer-events: none;
   z-index: 10000;
 }
-/* DANGER MODE — fade-in + subtle contracting vignette */
+
 .danger-mode-active {
-  pointer-events: none;
   animation: dangerFadeIn 0.6s ease-out forwards,
              dangerContract 2.2s infinite ease-in-out;
   background: radial-gradient(
@@ -214,31 +340,18 @@ main, .container, .container-fluid {
       rgba(255,0,0,0.18) 72%,
       rgba(255,0,0,0.38) 100%
   );
-  background-size: 100% 100%;
 }
 
-/* Smooth fade-in */
 @keyframes dangerFadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
 
-/* Subtle contracting movement */
 @keyframes dangerContract {
-  0% {
-    background-size: 100% 100%;
-    filter: contrast(1.1) saturate(1.2);
-  }
-  50% {
-    background-size: 103% 103%; /* slight inward contraction */
-    filter: contrast(1.25) saturate(1.4);
-  }
-  100% {
-    background-size: 100% 100%;
-    filter: contrast(1.1) saturate(1.2);
-  }
+  0% { background-size: 100% 100%; }
+  50% { background-size: 103% 103%; }
+  100% { background-size: 100% 100%; }
 }
-
 
 /* ---------------------------------------------------
    CONFETTI
@@ -282,77 +395,46 @@ main, .container, .container-fluid {
 }
 
 /* ---------------------------------------------------
-   BACK BUTTON
+   INSTRUCTIONS PANEL (TOP RIGHT)
 --------------------------------------------------- */
-.back-button {
+.instructions-slideout {
   position: fixed;
-  bottom: 15px;
-  left: 15px;
-  z-index: 2000;
+  top: 0;
+  right: 0;
+  width: 260px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.instructions-tab {
+  width: 100%;
+  text-align: center;
   background-color: #4b5563;
   color: #e5e7eb;
+  padding: 12px 0;
   font-weight: 700;
-  padding: 0.55rem 1rem;
-  border-radius: 3px;
-  box-shadow: 0 4px 0 #1f2937;
-  transition: all 0.15s ease-in-out;
+  border-radius: 0 0 0 8px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
 }
 
-.back-button:hover { background-color: #64748b; transform: translateY(-2px); }
-.back-button:active { transform: translateY(2px); }
-
-/* ---------------------------------------------------
-   INSTRUCTIONS — TOP RIGHT (FINAL WORKING VERSION)
---------------------------------------------------- */
-
-.instructions-slideout {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 260px;
-    z-index: 9999;
-    pointer-events: none;
-}
-
-/* TAB */
-.instructions-tab {
-    width: 100%;
-    text-align: center;
-
-    background-color: #4b5563;
-    color: #e5e7eb;
-    padding: 12px 0;
-    font-weight: 700;
-    border-radius: 0 0 0 8px;
-    cursor: pointer;
-
-    box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
-
-    pointer-events: auto;
-    position: relative;
-    z-index: 2;
-}
-
-/* PANEL — starts hidden ABOVE the tab */
 .instructions-content {
-    width: 100%;
-    background: rgba(17, 24, 39, 0.95);
-    border-bottom: 2px solid #FBBF24;
-    border-radius: 0 0 0 8px;
-    padding: 20px;
-
-    transform: translateY(-100%);
-    transition: transform 0.35s ease-in-out;
-
-    box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
-
-    pointer-events: auto;
-    position: relative;
-    z-index: 1;
+  width: 100%;
+  background: rgba(17, 24, 39, 0.95);
+  border-bottom: 2px solid #FBBF24;
+  border-radius: 0 0 0 8px;
+  padding: 20px;
+  transform: translateY(-100%);
+  transition: transform 0.35s ease-in-out;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
 }
 
-/* PANEL OPEN — drops DOWN */
 .instructions-slideout.active .instructions-content {
-    transform: translateY(0);
+  transform: translateY(0);
 }
-
