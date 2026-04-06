@@ -80,9 +80,9 @@ main, .container, .container-fluid {
 }
 
 /* ---------------------------------------------------
-   BUTTON BASE STYLE
+   SETUP PAGE BUTTONS ONLY
 --------------------------------------------------- */
-.card button {
+.setup-wrapper .card button {
   font-family: 'Roboto Mono', monospace;
   font-weight: 700;
   padding: 0.7rem 1rem;
@@ -144,7 +144,7 @@ main, .container, .container-fluid {
 }
 
 /* ---------------------------------------------------
-   BACK BUTTON — FIXED BOTTOM-LEFT, MATCHES RESET
+   BACK BUTTON — FIXED BOTTOM-LEFT
 --------------------------------------------------- */
 .back-button {
   position: fixed;
@@ -152,7 +152,7 @@ main, .container, .container-fluid {
   left: 20px;
   z-index: 9999;
 
-  background-color: #4b5563;   /* same as .btn-secondary */
+  background-color: #4b5563;
   color: #e5e7eb;
   font-weight: 700;
   font-size: 1rem;
@@ -179,7 +179,6 @@ main, .container, .container-fluid {
 .back-button:active {
   transform: translateY(2px);
 }
-
 
 /* ---------------------------------------------------
    HANGMAN GAME STYLES
@@ -280,22 +279,50 @@ main, .container, .container-fluid {
   box-shadow: 0 0 0 3px rgba(217,119,6,0.2);
 }
 
-/* Primary + Secondary Buttons (Game) */
+/* ---------------------------------------------------
+   ORIGINAL GUESS + RESET BUTTONS (RESTORED)
+--------------------------------------------------- */
 .btn-primary {
-  background-color: #F59E0B;
-  color: #111827;
-  box-shadow: 0 4px 0 #d97706;
+  background-color: #F59E0B !important;
+  color: #111827 !important;
+  font-weight: 700 !important;
+  padding: 0.45rem 1rem !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-shadow: 0 4px 0 #d97706 !important;
+  text-transform: none !important;
+  width: auto !important;
 }
-.btn-primary:hover { background-color: #FBBF24; transform: translateY(-2px); }
-.btn-primary:active { transform: translateY(2px); }
+
+.btn-primary:hover {
+  background-color: #FBBF24 !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-primary:active {
+  transform: translateY(2px) !important;
+}
 
 .btn-secondary {
-  background-color: #4b5563;
-  color: #e5e7eb;
-  box-shadow: 0 4px 0 #1f2937;
+  background-color: #4b5563 !important;
+  color: #e5e7eb !important;
+  font-weight: 700 !important;
+  padding: 0.45rem 1rem !important;
+  border-radius: 4px !important;
+  border: none !important;
+  box-shadow: 0 4px 0 #1f2937 !important;
+  text-transform: none !important;
+  width: auto !important;
 }
-.btn-secondary:hover { background-color: #64748b; transform: translateY(-2px); }
-.btn-secondary:active { transform: translateY(2px); }
+
+.btn-secondary:hover {
+  background-color: #64748b !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-secondary:active {
+  transform: translateY(2px) !important;
+}
 
 /* ---------------------------------------------------
    GAME OVER MESSAGE
