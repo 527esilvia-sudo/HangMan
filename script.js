@@ -1,6 +1,7 @@
 // --------------------------
 // WORD BANKS
 // --------------------------
+
 let easyWordBank = [
     'cat','dog','sun','hat','map',
     'cup','pen','bed','box','car',
@@ -28,6 +29,7 @@ let randomWordBank = [
     'architecture','lamp','silver','constellation','pocket',
     'gravity','island','festival','diamond','book'
 ];
+
 /* 🎬 ENTERTAINMENT ---------------------------------- */
 
 let moviesBank = [
@@ -44,12 +46,12 @@ let tvBank = [
   "vikings","lucifer","manifest","reacher","columbo"
 ];
 
-let celebritiesBank = [
-  "beyonce","rihanna","adele","zendaya","drake",
-  "swift","hanks","pitt","reeves","monroe",
-  "elvis","madonna","usher","shakira","rihanna",
-  "rihanna","weeknd","rihanna","rihanna","rihanna"
-]; // (If you want, I can replace repeats with more names)
+let charactersBank = [
+  "mario","elsa","batman","spiderman","harry","hermione",
+  "yoda","shrek","gandalf","pikachu",
+  "katniss","thor","loki","woody","buzz",
+  "scooby","velma","moana","tiana","stitch"
+];
 
 let gamesBank = [
   "minecraft","fortnite","zelda","pokemon","halo",
@@ -63,8 +65,7 @@ let musicBank = [
   "bruno","sza","usher","pink","shakira",
   "doja","olivia","ariana","bts","coldplay",
   "nirvana","queen","journey","rihanna","rihanna"
-]; // (Again, can replace repeats if you want)
-
+];
 
 /* 🌍 REAL WORLD ------------------------------------- */
 
@@ -96,7 +97,6 @@ let jobsBank = [
   "mechanic","scientist","librarian","firefighter","carpenter"
 ];
 
-
 /* 🧠 BRAINY CATEGORIES ------------------------------- */
 
 let scienceBank = [
@@ -126,7 +126,6 @@ let technologyBank = [
   "processor","monitor","keyboard","wireless","bluetooth",
   "firewall","storage","compiler","interface","protocol"
 ];
-
 
 /* 🍔 EVERYDAY STUFF ---------------------------------- */
 
@@ -158,7 +157,6 @@ let sportsBank = [
   "bowling","cycling","wrestling","rowing","track"
 ];
 
-
 /* 🎮 GAME-FRIENDLY ---------------------------------- */
 
 let longwordsBank = [
@@ -189,30 +187,37 @@ let compoundBank = [
   "bookstore","airport","earthquake","bedroom","rainbow"
 ];
 
+// --------------------------
+// GAME STATE VARIABLES
+// --------------------------
+// (renamed for clarity)
 
-// --------------------------
-// GAME VARIABLES
-// --------------------------
 let secretWord = "";
 let guessedLetters = [];
 let remainingGuesses = 0;
 let wrongGuesses = 0;
 let gameOver = false;
+
 let currentLevel = "";
+let currentCategory = "";
 
 // --------------------------
 // PAGE LOAD
 // --------------------------
+// Reads URL params and starts the game.
+
 document.addEventListener("DOMContentLoaded", function () {
-   const params = new URLSearchParams(window.location.search);
-const mode = params.get("mode");
-const category = params.get("category");
 
-startGame(mode, category);
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get("mode");
+    const category = params.get("category");
 
+    currentCategory = category; // ai debug: store category globally
+
+    startGame(mode, category);
 
     const letterInput = document.getElementById("letterInput");
-    if(letterInput){
+    if (letterInput) {
         letterInput.addEventListener("keypress", function (e) {
             if (e.key === "Enter") guessLetter();
         });
@@ -222,122 +227,169 @@ startGame(mode, category);
 // --------------------------
 // START GAME
 // --------------------------
-function startGame(level) {
-    if(!level) level = currentLevel;
+function startGame(level, category) {
+
+    // store mode + category
+    if (!level) level = currentLevel;
     else currentLevel = level;
 
+    if (!category) category = currentCategory;
+    else currentCategory = category;
+
+    // reset state
     guessedLetters = [];
     wrongGuesses = 0;
     remainingGuesses = 8;
     gameOver = false;
 
-    // Reset display
-    const remainingEl = document.getElementById("remaining-count");
-    if(remainingEl) remainingEl.textContent = remainingGuesses;
+    // reset UI
+    const remainingDisplay = document.getElementById("remaining-count");
+    if (remainingDisplay) remainingDisplay.textContent = remainingGuesses;
 
-    const gameMsg = document.getElementById("gameOverMessage");
-    if(gameMsg){
-        gameMsg.textContent = "";
-        gameMsg.classList.remove("game-over");
+    const gameMessage = document.getElementById("gameOverMessage");
+    if (gameMessage) {
+        gameMessage.textContent = "";
+        gameMessage.classList.remove("game-over");
     }
 
-    // Pick random word
-let randomIndex;
+    // pick word
+    let randomIndex;
 
-// DIFFICULTY MODES
-if (level === "easy") {
-    randomIndex = Math.floor(Math.random() * easyWordBank.length);
-    secretWord = easyWordBank[randomIndex].toUpperCase();
-}
-else if (level === "medium") {
-    randomIndex = Math.floor(Math.random() * medWordBank.length);
-    secretWord = medWordBank[randomIndex].toUpperCase();
-}
-else if (level === "hard") {
-    randomIndex = Math.floor(Math.random() * hardWordBank.length);
-    secretWord = hardWordBank[randomIndex].toUpperCase();
-}
-else if (level === "random") {
-    randomIndex = Math.floor(Math.random() * randomWordBank.length);
-    secretWord = randomWordBank[randomIndex].toUpperCase();
-}
+    // difficulty modes
+    if (level === "easy") {
+        randomIndex = Math.floor(Math.random() * easyWordBank.length);
+        secretWord = easyWordBank[randomIndex].toUpperCase();
+    }
+    else if (level === "medium") {
+        randomIndex = Math.floor(Math.random() * medWordBank.length);
+        secretWord = medWordBank[randomIndex].toUpperCase();
+    }
+    else if (level === "hard") {
+        randomIndex = Math.floor(Math.random() * hardWordBank.length);
+        secretWord = hardWordBank[randomIndex].toUpperCase();
+    }
+    else if (level === "random") {
+        randomIndex = Math.floor(Math.random() * randomWordBank.length);
+        secretWord = randomWordBank[randomIndex].toUpperCase();
+    }
 
-// CATEGORY MODES
-else if (category === "movies") {
-    secretWord = moviesBank[Math.floor(Math.random() * moviesBank.length)].toUpperCase();
-}
-else if (category === "tv") {
-    secretWord = tvBank[Math.floor(Math.random() * tvBank.length)].toUpperCase();
-}
-else if (category === "celebrities") {
-    secretWord = celebritiesBank[Math.floor(Math.random() * celebritiesBank.length)].toUpperCase();
-}
-else if (category === "games") {
-    secretWord = gamesBank[Math.floor(Math.random() * gamesBank.length)].toUpperCase();
-}
-else if (category === "music") {
-    secretWord = musicBank[Math.floor(Math.random() * musicBank.length)].toUpperCase();
-}
+    // category modes
+    else if (category === "movies") {
+        secretWord = moviesBank[
+            Math.floor(Math.random() * moviesBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "tv") {
+        secretWord = tvBank[
+            Math.floor(Math.random() * tvBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "characters") {
+        secretWord = charactersBank[
+            Math.floor(Math.random() * charactersBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "games") {
+        secretWord = gamesBank[
+            Math.floor(Math.random() * gamesBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "music") {
+        secretWord = musicBank[
+            Math.floor(Math.random() * musicBank.length)
+        ].toUpperCase();
+    }
 
-else if (category === "countries") {
-    secretWord = countriesBank[Math.floor(Math.random() * countriesBank.length)].toUpperCase();
-}
-else if (category === "cities") {
-    secretWord = citiesBank[Math.floor(Math.random() * citiesBank.length)].toUpperCase();
-}
-else if (category === "landmarks") {
-    secretWord = landmarksBank[Math.floor(Math.random() * landmarksBank.length)].toUpperCase();
-}
-else if (category === "jobs") {
-    secretWord = jobsBank[Math.floor(Math.random() * jobsBank.length)].toUpperCase();
-}
+    else if (category === "countries") {
+        secretWord = countriesBank[
+            Math.floor(Math.random() * countriesBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "cities") {
+        secretWord = citiesBank[
+            Math.floor(Math.random() * citiesBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "landmarks") {
+        secretWord = landmarksBank[
+            Math.floor(Math.random() * landmarksBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "jobs") {
+        secretWord = jobsBank[
+            Math.floor(Math.random() * jobsBank.length)
+        ].toUpperCase();
+    }
 
-else if (category === "science") {
-    secretWord = scienceBank[Math.floor(Math.random() * scienceBank.length)].toUpperCase();
-}
-else if (category === "legal") {
-    secretWord = legalBank[Math.floor(Math.random() * legalBank.length)].toUpperCase();
-}
-else if (category === "medical") {
-    secretWord = medicalBank[Math.floor(Math.random() * medicalBank.length)].toUpperCase();
-}
-else if (category === "technology") {
-    secretWord = technologyBank[Math.floor(Math.random() * technologyBank.length)].toUpperCase();
-}
+    else if (category === "science") {
+        secretWord = scienceBank[
+            Math.floor(Math.random() * scienceBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "legal") {
+        secretWord = legalBank[
+            Math.floor(Math.random() * legalBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "medical") {
+        secretWord = medicalBank[
+            Math.floor(Math.random() * medicalBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "technology") {
+        secretWord = technologyBank[
+            Math.floor(Math.random() * technologyBank.length)
+        ].toUpperCase();
+    }
 
-else if (category === "food") {
-    secretWord = foodBank[Math.floor(Math.random() * foodBank.length)].toUpperCase();
-}
-else if (category === "clothing") {
-    secretWord = clothingBank[Math.floor(Math.random() * clothingBank.length)].toUpperCase();
-}
-else if (category === "school") {
-    secretWord = schoolBank[Math.floor(Math.random() * schoolBank.length)].toUpperCase();
-}
-else if (category === "sports") {
-    secretWord = sportsBank[Math.floor(Math.random() * sportsBank.length)].toUpperCase();
-}
+    else if (category === "food") {
+        secretWord = foodBank[
+            Math.floor(Math.random() * foodBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "clothing") {
+        secretWord = clothingBank[
+            Math.floor(Math.random() * clothingBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "school") {
+        secretWord = schoolBank[
+            Math.floor(Math.random() * schoolBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "sports") {
+        secretWord = sportsBank[
+            Math.floor(Math.random() * sportsBank.length)
+        ].toUpperCase();
+    }
 
-else if (category === "longwords") {
-    secretWord = longwordsBank[Math.floor(Math.random() * longwordsBank.length)].toUpperCase();
-}
-else if (category === "shortwords") {
-    secretWord = shortwordsBank[Math.floor(Math.random() * shortwordsBank.length)].toUpperCase();
-}
-else if (category === "difficult") {
-    secretWord = difficultBank[Math.floor(Math.random() * difficultBank.length)].toUpperCase();
-}
-else if (category === "compound") {
-    secretWord = compoundBank[Math.floor(Math.random() * compoundBank.length)].toUpperCase();
-}
+    else if (category === "longwords") {
+        secretWord = longwordsBank[
+            Math.floor(Math.random() * longwordsBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "shortwords") {
+        secretWord = shortwordsBank[
+            Math.floor(Math.random() * shortwordsBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "difficult") {
+        secretWord = difficultBank[
+            Math.floor(Math.random() * difficultBank.length)
+        ].toUpperCase();
+    }
+    else if (category === "compound") {
+        secretWord = compoundBank[
+            Math.floor(Math.random() * compoundBank.length)
+        ].toUpperCase();
+    }
 
-
+    // update UI
     updateDisplay();
     updateGuessedLetters();
     updateImage();
     updateDangerMode();
 }
-
 // --------------------------
 // GUESS LETTER
 // --------------------------
@@ -346,25 +398,34 @@ function guessLetter() {
 
     const inputBox = document.getElementById("letterInput");
     const warning = document.getElementById("warning");
-    if(!inputBox) return;
+    if (!inputBox) return;
 
     let letter = inputBox.value.trim().toUpperCase();
     inputBox.value = "";
 
-    if(!/^[A-Z]$/.test(letter)){
-        if(warning){ warning.textContent="Please guess a letter"; warning.style.display="block"; }
+    // invalid input
+    if (!/^[A-Z]$/.test(letter)) {
+        if (warning) {
+            warning.textContent = "Please guess a letter";
+            warning.style.display = "block";
+        }
         return;
     }
 
-    if(guessedLetters.includes(letter)){
-        if(warning){ warning.textContent="You already guessed that letter"; warning.style.display="block"; }
+    // already guessed
+    if (guessedLetters.includes(letter)) {
+        if (warning) {
+            warning.textContent = "You already guessed that letter";
+            warning.style.display = "block";
+        }
         return;
     }
 
     guessedLetters.push(letter);
-    if(warning) warning.style.display="none";
+    if (warning) warning.style.display = "none";
 
-    if(!secretWord.includes(letter)){
+    // wrong guess
+    if (!secretWord.includes(letter)) {
         remainingGuesses--;
         shakeHangman();
     }
@@ -378,17 +439,15 @@ function guessLetter() {
     updateImage();
 }
 
-// --------------------------
 // DISPLAY
-// --------------------------
 function updateDisplay() {
     const wordEl = document.getElementById("wordDisplay");
-    if(!wordEl) return;
+    if (!wordEl) return;
 
     let display = "";
-    for(let char of secretWord){
-        if(guessedLetters.includes(char)) display += char + " ";
-        else if(gameOver) display += `<span style="color:red">${char}</span> `;
+    for (let char of secretWord) {
+        if (guessedLetters.includes(char)) display += char + " ";
+        else if (gameOver) display += `<span style="color:red">${char}</span> `;
         else display += "_ ";
     }
 
@@ -397,120 +456,128 @@ function updateDisplay() {
 
 function updateGuessedLetters() {
     const guessedEl = document.getElementById("guessedLetters");
-    if(!guessedEl) return;
+    if (!guessedEl) return;
 
     guessedEl.textContent = "Guessed: " + guessedLetters.join(" ");
 }
 
 function updateRemainingDisplay() {
     const remainingEl = document.getElementById("remaining-count");
-    if(remainingEl) remainingEl.textContent = remainingGuesses;
+    if (remainingEl) remainingEl.textContent = remainingGuesses;
 }
 
 function shakeHangman() {
     const hangman = document.getElementById("hangman");
-    if(hangman){
+    if (hangman) {
         hangman.classList.add("shake");
-        setTimeout(()=> hangman.classList.remove("shake"),500);
+        setTimeout(() => hangman.classList.remove("shake"), 500);
     }
 }
 
-function updateDangerMode(){
+function updateDangerMode() {
     const dangerEl = document.querySelector(".danger-mode");
-    if(!dangerEl) return;
+    if (!dangerEl) return;
 
-    if(remainingGuesses === 1 && !gameOver) dangerEl.classList.add("danger-mode-active");
+    if (remainingGuesses === 1 && !gameOver) dangerEl.classList.add("danger-mode-active");
     else dangerEl.classList.remove("danger-mode-active");
 }
 
-// --------------------------
 // WIN / LOSE
-// --------------------------
-function checkWin(){
+function checkWin() {
     let allFound = true;
-    for(let char of secretWord){
-        if(!guessedLetters.includes(char)) allFound = false;
+
+    for (let char of secretWord) {
+        if (!guessedLetters.includes(char)) allFound = false;
     }
 
-    if(allFound){
+    if (allFound) {
         gameOver = true;
+
         const winImg = document.getElementById("stagesImg");
-        if(winImg) winImg.src = "Untitled-10.png";
+        if (winImg) winImg.src = "Untitled-10.png";
 
         const gameMsg = document.getElementById("gameOverMessage");
-        if(gameMsg){
+        if (gameMsg) {
             gameMsg.textContent = "You Win! 🎉💥";
             gameMsg.classList.remove("game-over");
         }
 
         updateDangerMode();
-        launchConfetti();
+        launchConfetti(); // ai-generated effect
     }
 }
 
-function checkGameOver(){
-    if(remainingGuesses <= 0){
+function checkGameOver() {
+    if (remainingGuesses <= 0) {
         gameOver = true;
 
         const gameMsg = document.getElementById("gameOverMessage");
-        if(gameMsg){
+        if (gameMsg) {
             gameMsg.textContent = "Game Over!";
             gameMsg.classList.add("game-over");
         }
 
-        updateDisplay(); // show unguessed letters in red
+        updateDisplay(); // reveal missed letters
         updateDangerMode();
     }
 }
-
-// --------------------------
 // IMAGE + CONFETTI
-// --------------------------
-function updateImage(){
+function updateImage() {
     const img = document.getElementById("stagesImg");
-    if(!img) return;
+    if (!img) return;
 
-    // Only overwrite if the game is NOT won
-    if(gameOver && secretWord.split('').every(l => guessedLetters.includes(l))){
-        img.src = "Untitled-10.png"; // win image
-        return; // exit early, don't overwrite
+    // win image
+    if (gameOver && secretWord.split('').every(l => guessedLetters.includes(l))) {
+        img.src = "Untitled-10.png";
+        return;
     }
 
     let image = "";
-    if(remainingGuesses === 8) image = "Untitled-1.png";
-    if(remainingGuesses === 7) image = "Untitled-2.png";
-    if(remainingGuesses === 6) image = "Untitled-3.png";
-    if(remainingGuesses === 5) image = "Untitled-4.png";
-    if(remainingGuesses === 4) image = "Untitled-5.png";
-    if(remainingGuesses === 3) image = "Untitled-6.png";
-    if(remainingGuesses === 2) image = "Untitled-7.png";
-    if(remainingGuesses === 1) image = "Untitled-8.png";
-    if(remainingGuesses === 0) image = "Untitled-9.png";
+    if (remainingGuesses === 8) image = "Untitled-1.png";
+    if (remainingGuesses === 7) image = "Untitled-2.png";
+    if (remainingGuesses === 6) image = "Untitled-3.png";
+    if (remainingGuesses === 5) image = "Untitled-4.png";
+    if (remainingGuesses === 4) image = "Untitled-5.png";
+    if (remainingGuesses === 3) image = "Untitled-6.png";
+    if (remainingGuesses === 2) image = "Untitled-7.png";
+    if (remainingGuesses === 1) image = "Untitled-8.png";
+    if (remainingGuesses === 0) image = "Untitled-9.png";
 
     img.src = image;
 }
 
-function launchConfetti(){
+// ai-generated confetti effect
+function launchConfetti() {
     const container = document.getElementById("confetti-container");
-    if(!container) return;
+    if (!container) return;
 
     container.innerHTML = "";
-    const colors = ['#f94144','#f3722c','#f9c74f','#90be6d','#577590','#43aa8b','#4d908e','#f9844a','#f8961e','#f7b267'];
 
-    for(let i=0;i<450;i++){
+    const colors = [
+        '#f94144','#f3722c','#f9c74f','#90be6d','#577590',
+        '#43aa8b','#4d908e','#f9844a','#f8961e','#f7b267'
+    ];
+
+    for (let i = 0; i < 450; i++) {
         const confetti = document.createElement("div");
         confetti.className = "confetti";
-        const size = Math.floor(Math.random()*10)+6;
+
+        const size = Math.floor(Math.random() * 10) + 6;
         confetti.style.width = confetti.style.height = size + "px";
-        confetti.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
-        confetti.style.left = Math.random()*window.innerWidth + "px";
-        confetti.style.top = Math.random()*window.innerHeight + "px";
+
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.top = Math.random() * window.innerHeight + "px";
+
         container.appendChild(confetti);
     }
 
     container.style.opacity = "1";
-    setTimeout(()=> container.style.opacity="0",6000);
+    setTimeout(() => container.style.opacity = "0", 6000);
 }
+
+// UI BUTTONS
+// ai help
 function goBack() {
     window.location.href = "index.html";
 }
@@ -521,6 +588,3 @@ const instructionsSlideout = document.querySelector('.instructions-slideout');
 instructionsTab.addEventListener('click', () => {
     instructionsSlideout.classList.toggle('active');
 });
-
-
-

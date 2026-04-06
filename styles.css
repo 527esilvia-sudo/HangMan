@@ -164,9 +164,7 @@ main, .container, .container-fluid {
 .btn-secondary:hover { background-color: #64748b; transform: translateY(-2px); }
 .btn-secondary:active { transform: translateY(2px); }
 
-/* ---------------------------------------------------
-   GAME OVER MESSAGE
---------------------------------------------------- */
+/* GAME OVER — smooth fade-in, no instant flashing */
 #gameOverMessage.game-over {
   position: fixed;
   top: 40%;
@@ -178,8 +176,17 @@ main, .container, .container-fluid {
   font-size: clamp(3rem, 11vw, 8rem);
   color: #FBBF24;
   text-transform: uppercase;
-  animation: pulseGlow 2s infinite ease-in-out;
+  opacity: 0;
+  animation: gameOverFade 1.5s ease-out forwards;
+  animation-delay: 1s;
 }
+
+/* Fade-in animation */
+@keyframes gameOverFade {
+  0% { opacity: 0; filter: blur(4px); }
+  100% { opacity: 1; filter: blur(0px); }
+}
+
 
 @keyframes pulseGlow {
   0%   { filter: drop-shadow(0 0 8px rgba(251,191,36,0.4)); }
@@ -196,6 +203,42 @@ main, .container, .container-fluid {
   pointer-events: none;
   z-index: 10000;
 }
+/* DANGER MODE — fade-in + subtle contracting vignette */
+.danger-mode-active {
+  pointer-events: none;
+  animation: dangerFadeIn 0.6s ease-out forwards,
+             dangerContract 2.2s infinite ease-in-out;
+  background: radial-gradient(
+      circle at center,
+      rgba(0,0,0,0) 50%,
+      rgba(255,0,0,0.18) 72%,
+      rgba(255,0,0,0.38) 100%
+  );
+  background-size: 100% 100%;
+}
+
+/* Smooth fade-in */
+@keyframes dangerFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Subtle contracting movement */
+@keyframes dangerContract {
+  0% {
+    background-size: 100% 100%;
+    filter: contrast(1.1) saturate(1.2);
+  }
+  50% {
+    background-size: 103% 103%; /* slight inward contraction */
+    filter: contrast(1.25) saturate(1.4);
+  }
+  100% {
+    background-size: 100% 100%;
+    filter: contrast(1.1) saturate(1.2);
+  }
+}
+
 
 /* ---------------------------------------------------
    CONFETTI
